@@ -215,77 +215,65 @@
 }
 
 /* CONTAINER LOGIN */
-#login-container{
+.login-container{
     height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#login-container .login-form{
+.primeiro-acesso-container{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form{
     padding: 1.5em 2em;
     border-radius: 0;
     box-shadow: #04040379 0px 0px 7px;
 }
 
-#login-container .img-login-container{
+.img-login-container{
     display: flex;
     margin-bottom: 1.2em;
 }
 
-#login-container .botao-esqueceu-senha{
+.botao-esqueceu-senha{
     display: flex;
     align-items: center;
 }
 
-#login-container .botao-cadastro{
-    border: none;
-    background: none;
+.botao-cadastro{
     font-size: 1.2em;
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
-#login-container .botao-cadastro:hover{
-    border: none;
-    background: none;
+.alterar-senha{
+    display: flex;
+    justify-content: center;
 }
 
-#login-container .botao-cadastro:active{
-    border: none;
-    background: none;
-}
-
-#login-container .input-group{
+.input-group{
     margin-bottom: 1em;
 }
 
-#login-container .btn-entrar{
+.btn-entrar{
     border-radius: 0;
 }
 
-#login-container img{    
-    margin: auto;
+.img-login{
     width: 75px;
     height: 75px;
+    margin-right: 10px;
+    margin-left: 40px;
 }
 
-#login-container span{
-    margin-left: 0.5em;    
-    font-size: 1.8em;
-    font-weight: 900;
-    color: var(--vermelho);
-}
-
-#login-container h1{
-    color: var(--azul);
-    font-size: 1.4em;
-    font-weight: 700;
-    text-align: center;
-}
-
-#login-container i{
+.icone-input{
     padding-left: 0.5em;
     padding-right: 0.5em;
     display: flex;
@@ -294,8 +282,3 @@
     color: var(--branco);
     text-align: center;
 }
-#login-container a:hover{
-    text-decoration: none;
-    color: var(--vermelho);
-}
-

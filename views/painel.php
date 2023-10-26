@@ -70,7 +70,7 @@
     </nav>
 
     <!-- CONTEUDO PRINCIPAL -->
-    <div class="container-fluid">
+    <div class="container">
 
     </div>
     

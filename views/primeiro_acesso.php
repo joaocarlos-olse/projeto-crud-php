@@ -33,55 +33,48 @@
     <title>Primeiro Acesso</title>
 </head>
    <!-- CONTAINER LOGIN -->
-   <div class="container" id="login-container">
-        <div class="col12">
-            <div class="col-md-auto login-form">
-                <form class="form-signin" name="formLogin" method="post" action="../functions/alterar_senha.php">
-                    <input type="hidden" name="id" value="<?php echo($_SESSION['id_login']);?>">
-                    <div class="col-12">
-                        <h1>Olá, <?php echo($_SESSION['nome'])?>!</h1>                     
-                     </div>
-                    <h1 class="h3 mb-3">ALTERAR SENHA</h1>
-                    <!-- NOVA SENHA 1 -->
-                    <div class="input-group">
-                        <div class="input-group-prepend bg-cor-secundaria">
-                            <i class="bi bi-key"></i>
-                        </div>
-                        <input name="novasenha" type="password" class="form-control" id="validationCustomUsername" placeholder="Nova Senha" aria-describedby="inputGroupPrepend" required>
-                        <div class="invalid-feedback">
-                            Por favor, infomre a nova senha!
-                        </div>
-                    </div>
-                    <!-- NOVA SENHA 2 -->
-                    <div class="input-group">
-                        <div class="input-group-prepend bg-cor-secundaria">
-                            <i class="bi bi-key"></i>
-                        </div>
-                        <input name="confirmacaosenha" type="password" class="form-control" id="validationCustomPass" placeholder="Repita a senha" aria-describedby="inputGroupPrepend" required>
-                        <div class="invalid-feedback">
-                            Por favor, repita a nova senha!
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <?php
-                            if(isset($_SESSION['validacao'])){            
-                                echo('
-                                <div class="alert alert-danger erro-login" role="alert">
-                                    '.$_SESSION['validacao'].'
-                                </div>
-                                ');
-                                unset($_SESSION['validacao']);
-                            }
-                        ?>
-                        <div class="row justify-content-between">
-                            <div class="col-md-4">
-                                <button class="btn btn-outline-dark cor-secundaria btn-entrar" type="submit">ALTERAR</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+   <div class="container primeiro-acesso-container">
+    <div class="col-4 ">
+        <form class="form-signin login-form" name="formLogin" method="post" action="../functions/alterar_senha.php">
+            <input type="hidden" name="id" value="<?php echo($_SESSION['id_login']);?>">
+            <h1 class="h3 mb-5">Olá, <?php echo($_SESSION['nome'])?>!</h1>
+            <h1 class="h5 mb-3 alterar-senha">ALTERAR SENHA</h1>
+            <!-- NOVA SENHA 1 -->
+            <div class="input-group">
+                <div class="input-group-prepend bg-cor-secundaria">
+                    <i class="bi bi-key icone-input"></i>
+                </div>
+                <input name="novasenha" type="password" class="form-control" id="validationCustomUsername" placeholder="Nova Senha" aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                    Por favor, infomre a nova senha!
+                </div>
             </div>
-        </div>
+            <!-- NOVA SENHA 2 -->
+            <div class="input-group">
+                <div class="input-group-prepend bg-cor-secundaria">
+                    <i class="bi bi-key icone-input"></i>
+                </div>
+                <input name="confirmacaosenha" type="password" class="form-control" id="validationCustomPass" placeholder="Repita a senha" aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                    Por favor, repita a nova senha!
+                </div>
+            </div>
+            <?php
+                if(isset($_SESSION['validacao'])){            
+                    echo('
+                    <div class="alert alert-danger erro-login" role="alert">
+                        '.$_SESSION['validacao'].'
+                    </div>
+                    ');
+                    unset($_SESSION['validacao']);
+                }
+            ?>
+            <div class="botao-cadastro">
+                <button class="btn btn-outline-dark cor-secundaria btn-entrar" type="submit">ALTERAR</button>
+            </div>
+        </fomr>
+    </div>
+    
    </div>
 </body>
 </html>

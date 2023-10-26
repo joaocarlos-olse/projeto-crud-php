@@ -41,60 +41,58 @@
     </nav>
 
    <!-- CONTAINER LOGIN -->
-   <div class="container" id="login-container">
-        <div class="col12">
-            <div class="col-md-auto login-form">
-                <form class="form-signin" name="formLogin" method="post" action="../functions/validar_login.php">
-                    <div class="col-12 img-login-container">
-                        <img class="mb-4 " src="../images/logo.png" alt="">
-                        <span>Mercearia<br>5ºCiclo</span>
-                     </div>
-                    <h1 class="h3 mb-3">ENTRAR</h1>
-                    <!-- USUÁRIO -->
-                    <div class="input-group">
-                        <div class="input-group-prepend bg-cor-secundaria">
-                            <i class="bi bi-person"></i>
-                        </div>
-                        <input name="usuario" type="email" class="form-control" id="validationCustomUsername" placeholder="Usuário" aria-describedby="inputGroupPrepend" required>
-                        <div class="invalid-feedback">
-                            Por favor, infomre o usuário!
-                        </div>
+   <div class="container login-container">
+        <div class="col-md-4 login-form">
+            <form class="form-signin" name="formLogin" method="post" action="../functions/validar_login.php">
+                <div class="col-12 img-login-container">
+                    <img class="mb-4 img-login" src="../images/logo.png" alt="">
+                    <span>Mercearia<br>5ºCiclo</span>
                     </div>
-                    <!-- SENHA -->
-                    <div class="input-group">
-                        <div class="input-group-prepend bg-cor-secundaria">
-                            <i class="bi bi-key"></i>
-                        </div>
-                        <input name="senha" type="password" class="form-control" id="validationCustomPass" placeholder="Senha" aria-describedby="inputGroupPrepend" required>
-                        <div class="invalid-feedback">
-                            Por favor, infomre a senha!
-                        </div>
+                <h1 class="h3 mb-3 cor-secundaria">ENTRAR</h1>
+                <!-- USUÁRIO -->
+                <div class="input-group">
+                    <div class="input-group-prepend bg-cor-secundaria">
+                        <i class="bi bi-person icone-input"></i>
                     </div>
-                    <div class="col-12">
-                        <?php
-                            if(isset($_SESSION['validacao'])){            
-                                echo('
-                                <div class="alert alert-danger erro-login" role="alert">
-                                    '.$_SESSION['validacao'].'
-                                </div>
-                                ');
-                                unset($_SESSION['validacao']);
-                            }
-                        ?>
-                        <div class="row justify-content-between">
-                            <div class="col-md-8 botao-esqueceu-senha">
-                                <a href="" class="cor-secundaria" id="esqueceu-senha">Esqueceu a senha?</a>
+                    <input name="usuario" type="email" class="form-control" id="validationCustomUsername" placeholder="Usuário" aria-describedby="inputGroupPrepend" required>
+                    <div class="invalid-feedback">
+                        Por favor, infomre o usuário!
+                    </div>
+                </div>
+                <!-- SENHA -->
+                <div class="input-group">
+                    <div class="input-group-prepend bg-cor-secundaria">
+                        <i class="bi bi-key icone-input"></i>
+                    </div>
+                    <input name="senha" type="password" class="form-control" id="validationCustomPass" placeholder="Senha" aria-describedby="inputGroupPrepend" required>
+                    <div class="invalid-feedback">
+                        Por favor, infomre a senha!
+                    </div>
+                </div>
+                <div class="col-12">
+                    <?php
+                        if(isset($_SESSION['validacao'])){            
+                            echo('
+                            <div class="alert alert-danger erro-login" role="alert">
+                                '.$_SESSION['validacao'].'
                             </div>
-                            <div class="col-md-4">
-                                <button class="btn btn-outline-dark cor-secundaria btn-entrar" type="submit">ENTRAR</button>
-                            </div>
+                            ');
+                            unset($_SESSION['validacao']);
+                        }
+                    ?>
+                    <div class="row justify-content-between">
+                        <div class="col-md-8 botao-esqueceu-senha">
+                            <a href="" class="cor-secundaria" id="esqueceu-senha">Esqueceu a senha?</a>
                         </div>
-                        <div class="row botao-cadastro">
-                            <button class="botao-cadastro" type="button" data-toggle="modal" data-target="#ModalCadastro">Cadastre-se</button>
+                        <div class="col-md-4">
+                            <button class="btn btn-outline-dark cor-secundaria btn-entrar" type="submit">ENTRAR</button>
                         </div>
                     </div>
-                </form>
-            </div>
+                    <div class="row botao-cadastro">
+                        <a href="" data-toggle="modal" data-target="#ModalCadastro" class="cor-secundaria">Cadastre-se</a>
+                    </div>
+                </div>
+            </form>
         </div>
    </div>
 
@@ -105,15 +103,15 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="TituloModalLongoExemplo">Formulário de Cadastro</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true"><i class="bi bi-x cor-destaque"></i></span>
                 </button>
             </div>
             <div class="modal-body">
                 ...
             </div>
             <div class="modal-footer">
-                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Limpar</button>
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <button type="reset" class="btn btn-outline-dark cor-destaque btn-entrar" data-dismiss="modal">Limpar</button>
+                <button type="submit" class="btn btn-outline-dark cor-secundaria btn-entrar">Cadastrar</button>
             </div>
             </div>
         </div>
