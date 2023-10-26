@@ -33,7 +33,7 @@
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-destaque">
         <div class="container py-2">
             <a class="navbar-brand" href="index.php">
-                <img src="images/logo_outline.png" alt="Home" id="logo">
+                <img src="../images/logo_outline.png" alt="Home" id="logo">
                 <span>Mercearia<br>5ºCiclo</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#textoNavbar" aria-controls="textoNavbar" aria-expanded="false" aria-label="Alterna navegação">

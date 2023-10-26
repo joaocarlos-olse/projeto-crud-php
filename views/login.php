@@ -48,7 +48,7 @@
                     <img class="mb-4 img-login" src="../images/logo.png" alt="">
                     <span>Mercearia<br>5ºCiclo</span>
                     </div>
-                <h1 class="h3 mb-3 cor-secundaria">ENTRAR</h1>
+                <h1 class="h3 mb-3 cor-secundaria alterar-senha">ENTRAR</h1>
                 <!-- USUÁRIO -->
                 <div class="input-group">
                     <div class="input-group-prepend bg-cor-secundaria">
@@ -79,6 +79,26 @@
                             ');
                             unset($_SESSION['validacao']);
                         }
+                        if(isset($_SESSION['erro_cadastro'])){            
+                            echo('
+                            <div class="alert alert-danger erro-login" role="alert">
+                                '.$_SESSION['erro_cadastro'].'
+                            </div>
+                            ');
+                            unset($_SESSION['erro_cadastro']);
+                        }
+                        if(isset($_SESSION['sucesso_cadastro'])){            
+                            echo('
+                            <div class="alert alert-success erro-login" role="alert">
+                                '.$_SESSION['sucesso_cadastro'].'<br>
+                                Usuário:'.$_SESSION['usuario'].'<br>
+                                Senha:'.$_SESSION['senha_provisoria'].'
+                            </div>
+                            ');
+                            unset($_SESSION['sucesso_cadastro']);
+                            unset($_SESSION['usuario']);
+                            unset($_SESSION['senha_provisoria']);
+                        }
                     ?>
                     <div class="row justify-content-between">
                         <div class="col-md-8 botao-esqueceu-senha">
@@ -99,21 +119,106 @@
    <!-- Modal Formulário de Cadastro -->
     <div class="modal fade" id="ModalCadastro" tabindex="-1" role="dialog" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="TituloModalLongoExemplo">Formulário de Cadastro</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                <span aria-hidden="true"><i class="bi bi-x cor-destaque"></i></span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="reset" class="btn btn-outline-dark cor-destaque btn-entrar" data-dismiss="modal">Limpar</button>
-                <button type="submit" class="btn btn-outline-dark cor-secundaria btn-entrar">Cadastrar</button>
-            </div>
-            </div>
+            <form name="formCadastro" method="post" action="../functions/cadastrar_cliente.php">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="TituloModalLongoExemplo">Formulário de Cadastro</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true"><i class="bi bi-x cor-destaque"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input name="nome" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-10">
+                                <label>Endereço</label>
+                                <input name="endereco" type="text" class="form-control">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label>Nº</label>
+                                <input name="numero" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Cidade</label>
+                            <input name="cidade" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Bairro</label>
+                                <input name="bairro" type="text" class="form-control">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Estado</label>
+                                <select name="estado" class="form-control">
+                                    <option selected></option>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                </select>
+                            </div>                            
+                        </div>
+                        <div class="form-group">
+                            <label>E-mail</label>
+                            <input name="email" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>RG</label>
+                                <input name="rg" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>CPF/CNPJ</label>
+                                <input name="cpf_cnpj" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label>Telefone</label>
+                                <input name="telefone" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Celular</label>
+                                <input name="celular" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>Data Nasc.</label>
+                                <input name="data_nasc" type="date" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-outline-dark cor-secundaria btn-entrar">Cadastrar</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </body>

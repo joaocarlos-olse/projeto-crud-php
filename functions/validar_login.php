@@ -6,13 +6,13 @@
     include("../common/config.php");
 
     $usuario = filter_var($_POST['usuario'], FILTER_VALIDATE_EMAIL);
-    $senha = md5($_POST['senha']);
+    $senha = $_POST['senha'];
 
-    $sql = "SELECT * FROM login_usuarios WHERE login = '$usuario' AND senha = '$senha'";
+    $sql = "SELECT * FROM login_usuarios WHERE login = '$usuario'";
     $query = mysqli_query($conexao, $sql);
     $resultado = mysqli_fetch_assoc($query);
 
-    if((mysqli_affected_rows($conexao)) == 1){
+    if(password_verify($senha, $resultado['senha'])){
 
         $_SESSION['id_cliente'] = $resultado['id_cliente'];
         $_SESSION['id_login'] = $resultado['id'];
@@ -37,7 +37,7 @@
         $_SESSION['celular'] = $cliente['celular'];
         $_SESSION['data_nasc'] = $cliente['data_nasc'];
 
-        if($resultado['senha'] == md5($_SESSION['cpf_cnpj'])){
+        if(password_verify($cliente['cpf_cnpj'], $resultado['senha'])){
             header("Location: ../views/primeiro_acesso.php");
         }else{
             header("Location: ../views/painel.php");
