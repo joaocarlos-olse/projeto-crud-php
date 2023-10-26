@@ -34,12 +34,11 @@
 </head>
     <!-- BARRA DE NAVEGAÇÃO -->
     <nav class="bg-destaque nav-login">
-        <a class="navbar-brand" href="../index.php">
+        <a class="navbar-brand" href="index.php">
             <img src="../images/logo_outline.png" alt="Home" id="logo">
             <span class="cor-primaria">Mercearia<br>5ºCiclo</span>
         </a>
     </nav>
-
 
    <!-- CONTAINER LOGIN -->
    <div class="container" id="login-container">
@@ -99,25 +98,25 @@
         </div>
    </div>
 
-   <!-- Modal -->
+   <!-- Modal Formulário de Cadastro -->
     <div class="modal fade" id="ModalCadastro" tabindex="-1" role="dialog" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="TituloModalLongoExemplo">Formulário de Cadastro</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-            <span aria-hidden="true">&times;</span>
-            </button>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalLongoExemplo">Formulário de Cadastro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Limpar</button>
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </div>
+            </div>
         </div>
-        <div class="modal-body">
-            ...
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-            <button type="button" class="btn btn-primary">Cadastrar</button>
-        </div>
-        </div>
-    </div>
     </div>
 </body>
 </html>

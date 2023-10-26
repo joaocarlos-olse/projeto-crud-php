@@ -32,7 +32,7 @@
     <!-- BARRA DE NAVEGAÇÃO -->
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-destaque">
         <div class="container py-2">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="index.php">
                 <img src="images/logo_outline.png" alt="Home" id="logo">
                 <span>Mercearia<br>5ºCiclo</span>
             </a>
@@ -69,7 +69,7 @@
         </div>
     </nav>
 
-    <!-- MINI BANNERS -->
+    <!-- CONTEUDO PRINCIPAL -->
     <div class="container-fluid">
 
     </div>

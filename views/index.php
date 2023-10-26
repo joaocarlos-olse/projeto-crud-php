@@ -23,9 +23,9 @@
     <!-- ICONES DO GOOGLE -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- MEU CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <!-- MEU FAVICON -->
-    <link rel="shortcut icon" href="images/icons/logo.ico" type="image/x-icon">  
+    <link rel="shortcut icon" href="../images/icons/logo.ico" type="image/x-icon">  
     <title>Home</title>
 </head>
 
@@ -34,7 +34,7 @@
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-destaque">
         <div class="container py-2">
             <a class="navbar-brand" href="index.php">
-                <img src="images/logo_outline.png" alt="Home" id="logo">
+                <img src="../images/logo_outline.png" alt="Home" id="logo">
                 <span>Mercearia<br>5ºCiclo</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#textoNavbar" aria-controls="textoNavbar" aria-expanded="false" aria-label="Alterna navegação">
@@ -43,7 +43,7 @@
             <div class="collapse navbar-collapse" id="textoNavbar">
                 <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link cor-primaria" href="#">Home</a>
+                    <a class="nav-link cor-primaria" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link cor-primaria" href="#">Destaques</a>
@@ -58,11 +58,11 @@
                 <?php
                     if(isset($_SESSION['id_cliente'])){            
                         echo('
-                            <span class="cor-primaria">Olá,</span><a href="views/painel.php" class="nav-link cor-primaria">'.$_SESSION['nome'].'</a><a href="functions/logout.php"><button type="button" class="btn btn-outline-light cor-primaria btn-sm btn-boas-vindas">Sair</button></a>
+                            <span class="cor-primaria">Olá,</span><a href="painel.php" class="nav-link cor-primaria">'.$_SESSION['nome'].'</a><a href="../functions/logout.php"><button type="button" class="btn btn-outline-light cor-primaria btn-sm btn-boas-vindas">Sair</button></a>
                         ');
                     }else{
                         echo('
-                            <a href="views/login.php"><button type="button" class="btn btn-outline-light cor-primaria btn-index-login">Login</button></a>                        
+                            <a href="login.php"><button type="button" class="btn btn-outline-light cor-primaria btn-index-login">Login</button></a>                        
                         ');
                     }
                 ?>                
@@ -79,21 +79,21 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="d-block w-100" src="images/prateleiras.jpg" alt="Primeiro Slide">
+                <img class="d-block w-100" src="../images/prateleiras.jpg" alt="Primeiro Slide">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Lorem ipsum dolor sit amet</h5>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis aliquam nam sed non modi sit.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="images/carnes.jpg" alt="Segundo Slide">
+                <img class="d-block w-100" src="../images/carnes.jpg" alt="Segundo Slide">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Lorem ipsum dolor sit amet</h5>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis aliquam nam sed non modi sit.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="images/hortifruti.jpg" alt="Terceiro Slide">
+                <img class="d-block w-100" src="../images/hortifruti.jpg" alt="Terceiro Slide">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Lorem ipsum dolor sit amet</h5>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis aliquam nam sed non modi sit.</p>
@@ -163,21 +163,21 @@
         <div class="col-12" id="departamentos-imagens">
             <div class="row g-4">
                 <div class="col-12 col-md-4">
-                    <img src="images/prateleiras1.jpg" alt="Mercearia em geral" class="img-fluid"> 
+                    <img src="../images/prateleiras1.jpg" alt="Mercearia em geral" class="img-fluid"> 
                     <div class="banner-content">
                         <p class="cor-secundaria">Mercearia Geral</p>
                         <h3>Alimentos secos, itens de higiêne e limpeza.</h3>
                     </div>
                 </div>
                 <div class="col-12 col-md-4">             
-                    <img src="images/hortifruti1.jpg" alt="Hortifruti" class="img-fluid"> 
+                    <img src="../images/hortifruti1.jpg" alt="Hortifruti" class="img-fluid"> 
                     <div class="banner-content">
                         <p class="cor-secundaria">Hortifruti</p>
                         <h3>Frutas, legumes e verduras.</h3>
                     </div>
                 </div>
                 <div class="col-12 col-md-4">          
-                    <img src="images/carnes1.jpg" alt="Açougue" class="img-fluid"> 
+                    <img src="../images/carnes1.jpg" alt="Açougue" class="img-fluid"> 
                     <div class="banner-content">
                         <p class="cor-secundaria">Açougue</p>
                         <h3>Grande variedade de carnes.</h3>
@@ -248,7 +248,5 @@
             </div>
         </div>
     </footer>
-        
-        
 </body>
 </html>

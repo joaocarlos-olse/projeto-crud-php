@@ -36,7 +36,7 @@
    <div class="container" id="login-container">
         <div class="col12">
             <div class="col-md-auto login-form">
-                <form class="form-signin" name="formLogin" method="post" action="alterar_senha.php">
+                <form class="form-signin" name="formLogin" method="post" action="../functions/alterar_senha.php">
                     <input type="hidden" name="id" value="<?php echo($_SESSION['id_login']);?>">
                     <div class="col-12">
                         <h1>Olá, <?php echo($_SESSION['nome'])?>!</h1>                     
