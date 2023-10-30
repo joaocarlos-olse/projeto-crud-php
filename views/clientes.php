@@ -29,7 +29,16 @@
     <!-- MEU CSS -->
     <link rel="stylesheet" href="../css/style.css">
     <!-- MEU FAVICON -->
-    <link rel="shortcut icon" href="../images/icons/logo.ico" type="image/x-icon">     
+    <link rel="shortcut icon" href="../images/icons/logo.ico" type="image/x-icon">
+    
+    <script defer>
+        function setId(id){
+            const a = document.querySelector("#linkExcluir");
+            a.href = "../functions/excluir_cliente.php?id="+id
+            $('#ModalConfirmarExcluir').modal('show');
+        }
+    </script>
+
     <title>Cadastro de Clientes</title>
 </head>
 <body>
@@ -100,11 +109,57 @@
                     unset($_SESSION['usuario']);
                     unset($_SESSION['senha_provisoria']);
                 }
+                if(isset($_SESSION['erro_atualizacao'])){            
+                    echo('
+                    <div class="alert alert-danger erro-login" role="alert">
+                        '.$_SESSION['erro_atualizacao'].'
+                    </div>
+                    ');
+                    unset($_SESSION['erro_atualizacao']);
+                }
+                if(isset($_SESSION['sucesso_atualizacao'])){            
+                    echo('
+                    <div class="alert alert-success erro-login" role="alert">
+                        '.$_SESSION['sucesso_atualizacao'].'
+                    </div>
+                    ');
+                    unset($_SESSION['sucesso_atualizacao']);
+                }
+                if(isset($_SESSION['erro_excluir'])){            
+                    echo('
+                    <div class="alert alert-danger erro-login" role="alert">
+                        '.$_SESSION['erro_excluir'].'
+                    </div>
+                    ');
+                    unset($_SESSION['erro_excluir']);
+                }
+                if(isset($_SESSION['sucesso_excluir'])){            
+                    echo('
+                    <div class="alert alert-success erro-login" role="alert">
+                        '.$_SESSION['sucesso_excluir'].'
+                    </div>
+                    ');
+                    unset($_SESSION['sucesso_excluir']);
+                }
+                if(isset($_SESSION['destruir_sessao'])){
+                    session_destroy();
+                }                
             ?>
 
             <div class="gap-2 d-md-flex justify-content-end">
+
                 <?php
-                    if($_SESSION['admin'] == 1){
+                    if(!isset($_SESSION['cli_id'])){
+                        echo('
+                            <a href="" data-toggle="modal" data-target="#ModalAlterarSenha" class="btn-tabela bg-destaque cor-primaria">
+                                <i class="bi bi-key "></i>
+                                <span>Alterar Senha</span>
+                            </a>
+                        ');
+
+                    }
+
+                    if($_SESSION['admin'] == 1 && !isset($_SESSION['cli_id'])){
                         echo('
                         <a href="" data-toggle="modal" data-target="#ModalCadastro" class="btn-tabela bg-destaque cor-primaria">
                             <i class="bi bi-plus-lg "></i>
@@ -120,92 +175,297 @@
                 </a>
             </div>
 
-            <div class="table-responsive">
-                <table class="table table-hover mb-3">
-                    <thead class="bg-destaque cor-primaria">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">E-mail</th>
-                            <th scope="col">RG</th>
-                            <th scope="col">CPF/CNPJ</th>
-                            <th scope="col">Data Nasc.</th>
-                            <th scope="col">Endereço</th>
-                            <th scope="col">Nº</th>
-                            <th scope="col">Bairro</th>
-                            <th scope="col">Cidade</th>
-                            <th scope="col">UF</th>
-                            <th scope="col">Telefone</th>
-                            <th scope="col">Celular</th>
-                            <th scope="col">Tipo</th>
-                            <th scope="col">Editar</th>
-                            <th scope="col">Excuir</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            if($_SESSION['admin'] == 1){
-                                include("../common/config.php");
-                                $query = "SELECT cli.*, log.admin FROM clientes cli INNER JOIN login_usuarios log ON cli.id = log.id_cliente ORDER BY cli.id";
-                                $resu = mysqli_query($conexao, $query) or die (mysqli_connect_error());
-                                while($reg = mysqli_fetch_array($resu)){
-                                    echo('
-                                    <tr>
-                                        <th scope="row">'.$reg['id'].'</th>
-                                        <td>'.$reg['nome'].'</td>
-                                        <td>'.$reg['email'].'</td>
-                                        <td>'.$reg['rg'].'</td>
-                                        <td>'.$reg['cpf_cnpj'].'</td>
-                                        <td>'.$reg['data_nasc'].'</td>
-                                        <td>'.$reg['endereco'].'</td>
-                                        <td>'.$reg['numero'].'</td>
-                                        <td>'.$reg['bairro'].'</td>
-                                        <td>'.$reg['cidade'].'</td>
-                                        <td>'.$reg['estado'].'</td>
-                                        <td>'.$reg['telefone'].'</td>
-                                        <td>'.$reg['celular'].'</td>
-                                        <td>'.$reg['admin'].'</td>
-                                        <td class="td-icone-acoes">
-                                            <a href="" class="bi bi-pencil-fill icone-acoes cor-secundaria"></a>
-                                        </td>
-                                        <td class="td-icone-acoes">
-                                            <a href="" class="bi bi-trash-fill icone-acoes cor-destaque"></a>
-                                        </td>
-                                    </tr>
-                                ');                                    
-                                }
-                                mysqli_close($conexao);
-                            }
-                            else{
-                                echo('
-                                    <tr>
-                                        <th scope="row">'.$_SESSION['id_cliente'].'</th>
-                                        <td>'.$_SESSION['nome'].'</td>
-                                        <td>'.$_SESSION['email'].'</td>
-                                        <td>'.$_SESSION['rg'].'</td>
-                                        <td>'.$_SESSION['cpf_cnpj'].'</td>
-                                        <td>'.$_SESSION['data_nasc'].'</td>
-                                        <td>'.$_SESSION['endereco'].'</td>
-                                        <td>'.$_SESSION['numero'].'</td>
-                                        <td>'.$_SESSION['bairro'].'</td>
-                                        <td>'.$_SESSION['cidade'].'</td>
-                                        <td>'.$_SESSION['estado'].'</td>
-                                        <td>'.$_SESSION['telefone'].'</td>
-                                        <td>'.$_SESSION['celular'].'</td>
-                                        <td>'.$_SESSION['admin'].'</td>
-                                        <td>
-                                            <a href="" class="bi bi-pencil-fill icone-acoes cor-secundaria"></a>
-                                        </td>
-                                        <td>
-                                            <a href="" class="bi bi-trash-fill icone-acoes cor-destaque"></a>
-                                        </td>
-                                    </tr>
-                                ');
-                            }
-                        ?>                   
-                    </tbody>
-                </table>
-            </div>
+            <?php
+                if($_SESSION['admin'] == 1 && !isset($_SESSION['cli_id'])){
+                    include("../common/config.php");
+                    $query = "SELECT cli.*, log.admin FROM clientes cli INNER JOIN login_usuarios log ON cli.id = log.id_cliente ORDER BY cli.id";
+                    $resu = mysqli_query($conexao, $query) or die (mysqli_connect_error());
+
+                    echo('
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-3">
+                            <thead class="bg-destaque cor-primaria">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">E-mail</th>
+                                    <th scope="col">RG</th>
+                                    <th scope="col">CPF/CNPJ</th>
+                                    <th scope="col">Data Nasc.</th>
+                                    <th scope="col">Endereço</th>
+                                    <th scope="col">Nº</th>
+                                    <th scope="col">Bairro</th>
+                                    <th scope="col">Cidade</th>
+                                    <th scope="col">UF</th>
+                                    <th scope="col">Telefone</th>
+                                    <th scope="col">Celular</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Editar</th>
+                                    <th scope="col">Excuir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    ');
+
+                    while($reg = mysqli_fetch_array($resu)){
+                        echo('
+                             
+                                        <tr>
+                                            <th scope="row">'.$reg['id'].'</th>
+                                            <td>'.$reg['nome'].'</td>
+                                            <td>'.$reg['email'].'</td>
+                                            <td>'.$reg['rg'].'</td>
+                                            <td>'.$reg['cpf_cnpj'].'</td>
+                                            <td>'.$reg['data_nasc'].'</td>
+                                            <td>'.$reg['endereco'].'</td>
+                                            <td>'.$reg['numero'].'</td>
+                                            <td>'.$reg['bairro'].'</td>
+                                            <td>'.$reg['cidade'].'</td>
+                                            <td>'.$reg['estado'].'</td>
+                                            <td>'.$reg['telefone'].'</td>
+                                            <td>'.$reg['celular'].'</td>
+                                            <td>'.$reg['admin'].'</td>
+                                            <td class="td-icone-acoes">
+                                                <a href="../functions/select_cliente.php?id='.$reg['id'].'" class="bi bi-pencil-fill icone-acoes cor-secundaria"></a>
+                                            </td>
+                                            <td class="td-icone-acoes">
+                                                <button type="button" class="bi bi-trash-fill icone-acoes cor-destaque" onclick="setId('.$reg['id'].');"></button>
+                                            </td>
+                                        </tr>                                           
+                        ');                                    
+                    }
+                    
+                    echo('
+                            </tbody>
+                        </table>
+                    </div>
+                    ');
+                    mysqli_close($conexao);
+                }
+                elseif ($_SESSION['admin'] == 1 && isset($_SESSION['cli_id'])){
+                    $admin = $_SESSION['cli_admin'] ? "checked" : "";
+                    echo('
+                        <form name="formAtualizar" method="post" action="../functions/atualizar_cliente.php">
+                            <input type="hidden" name="id" value="'.$_SESSION['cli_id'].'">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="form-row justify-content-end">
+                                        <label class="form-check-label col-md-2" for="defaultCheck1">
+                                        Administrador
+                                        </label>
+                                        <input name="admin" class="form-check-input col-md-1" type="checkbox" value="1" id="defaultCheck1"'.$admin.'>
+                                    </div>                      
+                                    <div class="form-group">
+                                        <label>Nome</label>
+                                        <input name="nome" type="text" class="form-control" value="'.$_SESSION['cli_nome'].'" required>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-10">
+                                            <label>Endereço</label>
+                                            <input name="endereco" type="text" class="form-control" value="'.$_SESSION['cli_endereco'].'">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label>Nº</label>
+                                            <input name="numero" type="text" class="form-control" value="'.$_SESSION['cli_numero'].'">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Cidade</label>
+                                        <input name="cidade" type="text" class="form-control" value="'.$_SESSION['cli_cidade'].'" required>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label>Bairro</label>
+                                            <input name="bairro" type="text" class="form-control" value="'.$_SESSION['cli_bairro'].'">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Estado</label>
+                                            <select name="estado" class="form-control" required>
+                                                <option selected></option>
+                                                <option value="AC">Acre</option>
+                                                <option value="AL">Alagoas</option>
+                                                <option value="AP">Amapá</option>
+                                                <option value="AM">Amazonas</option>
+                                                <option value="BA">Bahia</option>
+                                                <option value="CE">Ceará</option>
+                                                <option value="DF">Distrito Federal</option>
+                                                <option value="ES">Espírito Santo</option>
+                                                <option value="GO">Goiás</option>
+                                                <option value="MA">Maranhão</option>
+                                                <option value="MT">Mato Grosso</option>
+                                                <option value="MS">Mato Grosso do Sul</option>
+                                                <option value="MG">Minas Gerais</option>
+                                                <option value="PA">Pará</option>
+                                                <option value="PB">Paraíba</option>
+                                                <option value="PR">Paraná</option>
+                                                <option value="PE">Pernambuco</option>
+                                                <option value="PI">Piauí</option>
+                                                <option value="RJ">Rio de Janeiro</option>
+                                                <option value="RN">Rio Grande do Norte</option>
+                                                <option value="RS">Rio Grande do Sul</option>
+                                                <option value="RO">Rondônia</option>
+                                                <option value="RR">Roraima</option>
+                                                <option value="SC">Santa Catarina</option>
+                                                <option value="SP">São Paulo</option>
+                                                <option value="SE">Sergipe</option>
+                                                <option value="TO">Tocantins</option>
+                                            </select>
+                                        </div>                            
+                                    </div>
+                                    <div class="form-group">
+                                        <label>E-mail</label>
+                                        <input name="email" type="text" class="form-control" value="'.$_SESSION['cli_email'].'" required>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label>RG</label>
+                                            <input name="rg" type="text" class="form-control" value="'.$_SESSION['cli_rg'].'" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>CPF/CNPJ</label>
+                                            <input name="cpf_cnpj" type="text" class="form-control" value="'.$_SESSION['cli_cpf_cnpj'].'" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label>Telefone</label>
+                                            <input name="telefone" type="text" class="form-control" value="'.$_SESSION['cli_telefone'].'" required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Celular</label>
+                                            <input name="celular" type="text" class="form-control" value="'.$_SESSION['cli_celular'].'" required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Data Nasc.</label>
+                                            <input name="data_nasc" type="date" class="form-control" value="'.$_SESSION['cli_data_nasc'].'" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-outline-dark cor-secundaria btn-entrar" type="submit">Atualizar Cadastro</button>                                   
+                                </div>
+                            </div>
+                        </form>
+                    ');
+                    unset($_SESSION['cli_id']);
+                    unset($_SESSION['cli_admin']);
+                    unset($_SESSION['cli_nome']);
+                    unset($_SESSION['cli_endereco']);
+                    unset($_SESSION['cli_numero']);
+                    unset($_SESSION['cli_bairro']);
+                    unset($_SESSION['cli_cidade']);
+                    unset($_SESSION['cli_estado']);
+                    unset($_SESSION['cli_email']);
+                    unset($_SESSION['cli_cpf_cnpj']);
+                    unset($_SESSION['cli_rg']);
+                    unset($_SESSION['cli_telefone']);
+                    unset($_SESSION['cli_celular']);
+                    unset($_SESSION['cli_data_nasc']);
+                }
+                else{
+                    echo('
+                        <form name="formAtualizar" method="post" action="../functions/atualizar_cliente.php">
+                            <input type="hidden" name="id" value="'.$_SESSION['id_cliente'].'">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="TituloModalLongoExemplo">MEU CADASTRO</h5>
+                                </div>
+                                <div class="modal-body">                        
+                                    <div class="form-group">
+                                        <label>Nome</label>
+                                        <input name="nome" type="text" class="form-control" value="'.$_SESSION['nome'].'" required>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-10">
+                                            <label>Endereço</label>
+                                            <input name="endereco" type="text" class="form-control" value="'.$_SESSION['endereco'].'">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label>Nº</label>
+                                            <input name="numero" type="text" class="form-control" value="'.$_SESSION['numero'].'">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Cidade</label>
+                                        <input name="cidade" type="text" class="form-control" value="'.$_SESSION['cidade'].'" required>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label>Bairro</label>
+                                            <input name="bairro" type="text" class="form-control" value="'.$_SESSION['bairro'].'">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Estado</label>
+                                            <select name="estado" class="form-control" required>
+                                                <option selected></option>
+                                                <option value="AC">Acre</option>
+                                                <option value="AL">Alagoas</option>
+                                                <option value="AP">Amapá</option>
+                                                <option value="AM">Amazonas</option>
+                                                <option value="BA">Bahia</option>
+                                                <option value="CE">Ceará</option>
+                                                <option value="DF">Distrito Federal</option>
+                                                <option value="ES">Espírito Santo</option>
+                                                <option value="GO">Goiás</option>
+                                                <option value="MA">Maranhão</option>
+                                                <option value="MT">Mato Grosso</option>
+                                                <option value="MS">Mato Grosso do Sul</option>
+                                                <option value="MG">Minas Gerais</option>
+                                                <option value="PA">Pará</option>
+                                                <option value="PB">Paraíba</option>
+                                                <option value="PR">Paraná</option>
+                                                <option value="PE">Pernambuco</option>
+                                                <option value="PI">Piauí</option>
+                                                <option value="RJ">Rio de Janeiro</option>
+                                                <option value="RN">Rio Grande do Norte</option>
+                                                <option value="RS">Rio Grande do Sul</option>
+                                                <option value="RO">Rondônia</option>
+                                                <option value="RR">Roraima</option>
+                                                <option value="SC">Santa Catarina</option>
+                                                <option value="SP">São Paulo</option>
+                                                <option value="SE">Sergipe</option>
+                                                <option value="TO">Tocantins</option>
+                                            </select>
+                                        </div>                            
+                                    </div>
+                                    <div class="form-group">
+                                        <label>E-mail</label>
+                                        <input name="email" type="text" class="form-control" value="'.$_SESSION['email'].'" required>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label>RG</label>
+                                            <input name="rg" type="text" class="form-control" value="'.$_SESSION['rg'].'" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>CPF/CNPJ</label>
+                                            <input name="cpf_cnpj" type="text" class="form-control" value="'.$_SESSION['cpf_cnpj'].'" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label>Telefone</label>
+                                            <input name="telefone" type="text" class="form-control" value="'.$_SESSION['telefone'].'" required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Celular</label>
+                                            <input name="celular" type="text" class="form-control" value="'.$_SESSION['celular'].'" required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Data Nasc.</label>
+                                            <input name="data_nasc" type="date" class="form-control" value="'.$_SESSION['data_nasc'].'" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-outline-dark cor-secundaria btn-entrar" data-toggle="modal" data-target="#ModalConfirmarExcluir" type="button" onclick="setId('.$_SESSION['id_cliente'].');">Excluir Cadastro</button>
+                                    <button class="btn btn-outline-dark cor-secundaria btn-entrar" type="submit">Atualizar Cadastro</button>
+                                </div>
+                            </div>
+                        </form>
+                    ');
+                }
+            ?>
         </div>
     </div>
     
@@ -387,5 +647,83 @@
         ');
         }
     ?>
+
+    <!-- Modal Confirmação de exclusão -->
+    <div class="modal fade" id="ModalConfirmarExcluir" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="TituloModalCentralizado">ATENÇÃO!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true"><i class="bi bi-x cor-destaque"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Tem certeza que deseja excluir seu cadastro?
+            </div>
+            <div class="modal-footer">
+                <a href="" data-dismiss="modal" class="btn-tabela bg-destaque cor-primaria">
+                    <i class="bi bi-hand-thumbs-down "></i>
+                    <span>Não</span>
+                </a>
+                <?php
+                    echo('
+                        <a href="" id="linkExcluir" class="btn-tabela bg-cor-secundaria cor-primaria">
+                            <i class="bi bi-hand-thumbs-up "></i>
+                            <span>Sim</span>
+                        </a>                
+                    ')
+                ?>
+
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Alterar Senha -->
+    <div class="modal fade" id="ModalAlterarSenha" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true"><i class="bi bi-x cor-destaque"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-signin" name="formLogin" method="post" action="../functions/alterar_senha.php">
+                    <input type="hidden" name="id" value="<?php echo($_SESSION['id_login']);?>">
+                    <h1 class="h1 mb-3 alterar-senha">ALTERAR SENHA</h1>
+                    <!-- NOVA SENHA 1 -->
+                    <div class="input-group">
+                        <div class="input-group-prepend bg-cor-secundaria">
+                            <i class="bi bi-key icone-input"></i>
+                        </div>
+                        <input name="novasenha" type="password" class="form-control" id="validationCustomUsername" placeholder="Nova Senha" aria-describedby="inputGroupPrepend" required>
+                    </div>
+                    <!-- NOVA SENHA 2 -->
+                    <div class="input-group">
+                        <div class="input-group-prepend bg-cor-secundaria">
+                            <i class="bi bi-key icone-input"></i>
+                        </div>
+                        <input name="confirmacaosenha" type="password" class="form-control" id="validationCustomPass" placeholder="Repita a senha" aria-describedby="inputGroupPrepend" required>
+                    </div>
+                    <?php
+                        if(isset($_SESSION['validacao'])){            
+                            echo('
+                            <div class="alert alert-danger erro-login" role="alert">
+                                '.$_SESSION['validacao'].'
+                            </div>
+                            ');
+                            unset($_SESSION['validacao']);
+                        }
+                    ?>
+                    <div class="botao-cadastro">
+                        <button class="btn btn-outline-dark cor-secundaria btn-entrar" type="submit">ALTERAR</button>
+                    </div>
+                </fomr>
+            </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

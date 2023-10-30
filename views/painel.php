@@ -76,6 +76,9 @@
     <!-- CONTEUDO PRINCIPAL -->
     <div class="altura-minima">
         <div class="container">
+
+            <h2 class="title mb-4 mt-5 cor-destaque">Olá, <?php echo($_SESSION['nome']) ?></h2>
+
             <?php
                 if(isset($_SESSION['validacao'])){
                     echo('
@@ -86,8 +89,6 @@
                     unset($_SESSION['validacao']);
                 }
             ?>
-        
-                <h2 class="title mb-4 mt-5 cor-destaque">Olá, <?php echo($_SESSION['nome']) ?></h2>
         </div>
     </div>
     

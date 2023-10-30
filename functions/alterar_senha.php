@@ -33,6 +33,5 @@
             header("Location: ../views/primeiro_acesso.php");
         }        
     }
-
     mysqli_close($con);
 ?>

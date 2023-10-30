@@ -72,11 +72,11 @@
 
         $query = mysqli_query($conexao, $sql);
 
-        mysqli_commit($conexao);
-
-        $_SESSION['sucesso_cadastro'] = "<strong>FEITO:</strong> O cadastro realizado!";
+        $_SESSION['sucesso_cadastro'] = "<strong>FEITO:</strong>Cadastro realizado!";
         $_SESSION['usuario'] = $email;
         $_SESSION['senha_provisoria'] = $cpf_cnpj;
+
+        mysqli_commit($conexao);
 
         if(isset($_SESSION["id_cliente"])){
             header("Location: ../views/clientes.php");
@@ -90,9 +90,10 @@
         mysqli_rollback($conexao);
 
         throw $e;
-        $_SESSION['erro_cadastro'] = "<strong>ERRO</strong><br>O cadastro não foi realizado!";
+        $_SESSION['erro_cadastro'] = "<strong>ERRO:</strong><br>Cadastro não foi realizado!";
         header("Location: ../views/login.php");
     }
-
-    mysqli_close($conexao);
+    finally{
+        mysqli_close($conexao);
+    }
 ?>

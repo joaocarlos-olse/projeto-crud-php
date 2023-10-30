@@ -294,6 +294,8 @@
 /* TABELAS */
 .icone-acoes {
     display: block;
+    border: none;
+    background: none;
     text-align: center;
     font-size: 1.3em;
     cursor: pointer;
