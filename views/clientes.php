@@ -147,8 +147,12 @@
             ?>
 
             <div class="gap-2 d-md-flex justify-content-end">
+                <a href="" data-toggle="modal" data-target="#ModalConsulta" class="btn-tabela bg-destaque cor-primaria">
+                    <i class="bi bi-search "></i>
+                    <span>Consultar</span>
+                </a>
 
-                <?php
+                <?php                    
                     if(!isset($_SESSION['cli_id'])){
                         echo('
                             <a href="" data-toggle="modal" data-target="#ModalAlterarSenha" class="btn-tabela bg-destaque cor-primaria">
@@ -647,6 +651,39 @@
         ');
         }
     ?>
+
+    <!-- Modal Consulta -->
+    <div class="modal fade" id="ModalConsulta" tabindex="-1" role="dialog" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form name="formCadastro" method="post" action="../functions/select_cliente.php">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="TituloModalLongoExemplo">Consultar Cliente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true"><i class="bi bi-x cor-destaque"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">                       
+                        <div class="form-group">
+                            <label>Nome</label>
+                            <input name="nome" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Cidade</label>
+                            <input name="cidade" type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>CPF/CNPJ</label>
+                            <input name="cpf_cnpj" type="text" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-outline-dark cor-secundaria btn-entrar">Cadastrar</button>
+                    </div>                    
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Modal Confirmação de exclusão -->
     <div class="modal fade" id="ModalConfirmarExcluir" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
