@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <!-- MEU FAVICON -->
     <link rel="shortcut icon" href="../images/icons/logo.ico" type="image/x-icon">     
-    <title>Painel de Controle</title>
+    <title>Cadastro de Clientes</title>
 </head>
 <body>
     <!-- BARRA DE NAVEGAÇÃO -->
@@ -45,11 +45,11 @@
             </button>
             <div class="collapse navbar-collapse" id="textoNavbar">
                 <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link cor-primaria" href="painel.php">Painel</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link cor-primaria" href="clientes.php">Clientes</a>
+                <li class="nav-item active">
+                    <a class="nav-link cor-primaria" href="#">Clientes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link cor-primaria" href="#">Pedidos</a>
@@ -76,18 +76,118 @@
     <!-- CONTEUDO PRINCIPAL -->
     <div class="altura-minima">
         <div class="container">
+
+            <h2 class="title mb-4 mt-5 cor-destaque">Cadastro de Clientes</h2>
+            <div class="gap-2 d-md-flex justify-content-end">
+                <div class="btn-tabela bg-destaque">
+                    <a href="login.php" class="cor-primaria">
+                        <i class="bi bi-plus-lg cor-primaria"></i>
+                        <span>Novo Cadastro</span>
+                    </a>
+                </div>
+                <a href="login.php">
+                    <button type="button" class="cor-primaria btn-tabela bg-cor-secundaria">
+                        <i class="bi bi-file-earmark-pdf cor-primaria"></i>
+                        <span>Emitir Relatório</span>
+                    </button>
+                </a>
+            </div>
+
             <?php
-                if(isset($_SESSION['validacao'])){
+                if($_SESSION['admin'] == 1){
                     echo('
-                    <div class="alert alert-success erro-login" role="alert">
-                        '.$_SESSION['validacao'].'
-                    </div>
+
                     ');
-                    unset($_SESSION['validacao']);
+
                 }
             ?>
-        
-                <h2 class="title mb-4 mt-5 cor-destaque">Olá, <?php echo($_SESSION['nome']) ?></h2>
+
+            <div class="table-responsive">
+                <table class="table table-hover mb-3">
+                    <thead class="bg-destaque cor-primaria">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">RG</th>
+                            <th scope="col">CPF/CNPJ</th>
+                            <th scope="col">Data Nasc.</th>
+                            <th scope="col">Endereço</th>
+                            <th scope="col">Nº</th>
+                            <th scope="col">Bairro</th>
+                            <th scope="col">Cidade</th>
+                            <th scope="col">UF</th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">Celular</th>
+                            <th scope="col">Adm</th>
+                            <th scope="col">Editar</th>
+                            <th scope="col">Excuir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            if($_SESSION['admin'] == 1){
+                                include("../common/config.php");
+                                $query = "SELECT cli.*, log.admin FROM clientes cli INNER JOIN login_usuarios log ON cli.id = log.id_cliente ORDER BY cli.id";
+                                $resu = mysqli_query($conexao, $query) or die (mysqli_connect_error());
+                                while($reg = mysqli_fetch_array($resu)){
+                                    echo('
+                                    <tr>
+                                        <th scope="row">'.$reg['id'].'</th>
+                                        <td>'.$reg['nome'].'</td>
+                                        <td>'.$reg['email'].'</td>
+                                        <td>'.$reg['rg'].'</td>
+                                        <td>'.$reg['cpf_cnpj'].'</td>
+                                        <td>'.$reg['data_nasc'].'</td>
+                                        <td>'.$reg['endereco'].'</td>
+                                        <td>'.$reg['numero'].'</td>
+                                        <td>'.$reg['bairro'].'</td>
+                                        <td>'.$reg['cidade'].'</td>
+                                        <td>'.$reg['estado'].'</td>
+                                        <td>'.$reg['telefone'].'</td>
+                                        <td>'.$reg['celular'].'</td>
+                                        <td>'.$reg['admin'].'</td>
+                                        <td>
+                                            <a href="" class="bi bi-pencil-fill icone-acoes cor-secundaria"></a>
+                                        </td>
+                                        <td>
+                                            <a href="" class="bi bi-trash-fill icone-acoes cor-destaque"></a>
+                                        </td>
+                                    </tr>
+                                ');                                    
+                                }
+                                mysqli_close($conexao);
+                            }
+                            else{
+                                echo('
+                                    <tr>
+                                        <th scope="row">'.$_SESSION['id_cliente'].'</th>
+                                        <td>'.$_SESSION['nome'].'</td>
+                                        <td>'.$_SESSION['email'].'</td>
+                                        <td>'.$_SESSION['rg'].'</td>
+                                        <td>'.$_SESSION['cpf_cnpj'].'</td>
+                                        <td>'.$_SESSION['data_nasc'].'</td>
+                                        <td>'.$_SESSION['endereco'].'</td>
+                                        <td>'.$_SESSION['numero'].'</td>
+                                        <td>'.$_SESSION['bairro'].'</td>
+                                        <td>'.$_SESSION['cidade'].'</td>
+                                        <td>'.$_SESSION['estado'].'</td>
+                                        <td>'.$_SESSION['telefone'].'</td>
+                                        <td>'.$_SESSION['celular'].'</td>
+                                        <td>'.$_SESSION['admin'].'</td>
+                                        <td>
+                                            <a href="" class="bi bi-pencil-fill icone-acoes cor-secundaria"></a>
+                                        </td>
+                                        <td>
+                                            <a href="" class="bi bi-trash-fill icone-acoes cor-destaque"></a>
+                                        </td>
+                                    </tr>
+                                ');
+                            }
+                        ?>                   
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     

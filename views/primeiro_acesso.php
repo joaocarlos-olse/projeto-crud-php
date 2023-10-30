@@ -3,7 +3,7 @@
         session_start();
     }
 
-    if(!password_verify($_SESSION['cpf_cnpj'], $_SESSION['senha']) == false){
+    if(password_verify($_SESSION['cpf_cnpj'], $_SESSION['senha']) == false){
         header("Location: painel.php");
     }
 ?>

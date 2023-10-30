@@ -46,7 +46,7 @@
             <form class="form-signin" name="formLogin" method="post" action="../functions/validar_login.php">
                 <div class="col-12 img-login-container">
                     <img class="mb-4 img-login" src="../images/logo.png" alt="">
-                    <span>Mercearia<br>5ºCiclo</span>
+                    <span class="h2 mb-4 title-login-container cor-destaque">Mercearia<br>5ºCiclo</span>
                     </div>
                 <h1 class="h3 mb-3 cor-secundaria alterar-senha">ENTRAR</h1>
                 <!-- USUÁRIO -->
@@ -91,8 +91,8 @@
                             echo('
                             <div class="alert alert-success erro-login" role="alert">
                                 '.$_SESSION['sucesso_cadastro'].'<br>
-                                Usuário:'.$_SESSION['usuario'].'<br>
-                                Senha:'.$_SESSION['senha_provisoria'].'
+                                <strong>Usuário:</strong> '.$_SESSION['usuario'].'<br>
+                                <strong>Senha:</strong> '.$_SESSION['senha_provisoria'].'
                             </div>
                             ');
                             unset($_SESSION['sucesso_cadastro']);

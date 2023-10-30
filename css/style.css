@@ -230,6 +230,10 @@
     align-items: center;
 }
 
+.altura-minima{
+    min-height: 80vh;
+}
+
 .login-form{
     padding: 1.5em 2em;
     border-radius: 0;
@@ -239,6 +243,10 @@
 .img-login-container{
     display: flex;
     margin-bottom: 1.2em;
+}
+
+.title-login-container {
+    font-weight: 500;
 }
 
 .botao-esqueceu-senha{
@@ -270,7 +278,7 @@
     width: 75px;
     height: 75px;
     margin-right: 10px;
-    margin-left: 40px;
+    margin-left: 30px;
 }
 
 .icone-input{
@@ -281,4 +289,42 @@
     font-size: 1.3em;
     color: var(--branco);
     text-align: center;
+}
+
+/* TABELAS */
+.icone-acoes {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btn-tabela{
+    padding: 2px 10px;
+    border-radius: 0;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+.btn-tabela i{
+    font-size: 1.3em;
+}
+.btn-tabela span{
+    font-size: 1.2em;
+}
+
+.bi-pencil-fill:hover {
+    color: var(--azul);
+    text-decoration: none;
+    text-shadow: 10px 10px 25px var(--azul),
+                -10px 10px 25px var(--azul),
+                -10px -10px 25px var(--azul),
+                10px -10px 25px var(--azul);
+}
+
+.bi-trash-fill:hover {
+    color: var(--vermelho);
+    text-decoration: none;
+    text-shadow: 10px 10px 25px var(--vermelho),
+                -10px 10px 25px var(--vermelho),
+                -10px -10px 25px var(--vermelho),
+                10px -10px 25px var(--vermelho);
 }
