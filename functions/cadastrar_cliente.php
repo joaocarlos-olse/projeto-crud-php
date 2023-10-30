@@ -6,6 +6,7 @@
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     require("../common/config.php");
 
+    $admin = $_POST['admin'] == 1 ? 1 : 0;
     $nome = $_POST['nome'];
     $endereco = $_POST['endereco'];
     $numero = $_POST['numero'];
@@ -67,18 +68,26 @@
 
         $senha = password_hash($cpf_cnpj, PASSWORD_DEFAULT);
         $id_cliente = $cliente_inserido['id'];
-        $sql = "INSERT INTO login_usuarios (login, senha, admin, id_cliente) VALUES ('$email', '$senha', 0, '$id_cliente')";
+        $sql = "INSERT INTO login_usuarios (login, senha, admin, id_cliente) VALUES ('$email', '$senha', $admin, '$id_cliente')";
 
         $query = mysqli_query($conexao, $sql);
 
         mysqli_commit($conexao);
 
-        $_SESSION['sucesso_cadastro'] = "<strong>FEITO</strong><br>O cadastro foi realizado!";
+        $_SESSION['sucesso_cadastro'] = "<strong>FEITO:</strong> O cadastro realizado!";
         $_SESSION['usuario'] = $email;
         $_SESSION['senha_provisoria'] = $cpf_cnpj;
-        header("Location: ../views/login.php");                
+
+        if(isset($_SESSION["id_cliente"])){
+            header("Location: ../views/clientes.php");
+        }
+        else{
+            header("Location: ../views/login.php");
+        }
+        
+
     }catch (mysqli_exception $e){
-        mysqli_rollback($con);
+        mysqli_rollback($conexao);
 
         throw $e;
         $_SESSION['erro_cadastro'] = "<strong>ERRO</strong><br>O cadastro não foi realizado!";

@@ -91,8 +91,8 @@
                             echo('
                             <div class="alert alert-success erro-login" role="alert">
                                 '.$_SESSION['sucesso_cadastro'].'<br>
-                                <strong>Usuário:</strong> '.$_SESSION['usuario'].'<br>
-                                <strong>Senha:</strong> '.$_SESSION['senha_provisoria'].'
+                                Usuário: '.$_SESSION['usuario'].'<br>
+                                Senha: '.$_SESSION['senha_provisoria'].'
                             </div>
                             ');
                             unset($_SESSION['sucesso_cadastro']);
