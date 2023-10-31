@@ -181,61 +181,55 @@
 
             <?php
                 if($_SESSION['admin'] == 1 && !isset($_SESSION['cli_id'])){
-                    include("../common/config.php");
-                    $query = "SELECT cli.*, log.admin FROM clientes cli INNER JOIN login_usuarios log ON cli.id = log.id_cliente ORDER BY cli.id";
-                    $resu = mysqli_query($conexao, $query) or die (mysqli_connect_error());
-
                     echo('
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-3">
-                            <thead class="bg-destaque cor-primaria">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nome</th>
-                                    <th scope="col">E-mail</th>
-                                    <th scope="col">RG</th>
-                                    <th scope="col">CPF/CNPJ</th>
-                                    <th scope="col">Data Nasc.</th>
-                                    <th scope="col">Endereço</th>
-                                    <th scope="col">Nº</th>
-                                    <th scope="col">Bairro</th>
-                                    <th scope="col">Cidade</th>
-                                    <th scope="col">UF</th>
-                                    <th scope="col">Telefone</th>
-                                    <th scope="col">Celular</th>
-                                    <th scope="col">Tipo</th>
-                                    <th scope="col">Editar</th>
-                                    <th scope="col">Excuir</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-3">
+                                <thead class="bg-destaque cor-primaria">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">E-mail</th>
+                                        <th scope="col">RG</th>
+                                        <th scope="col">CPF/CNPJ</th>
+                                        <th scope="col">Data Nasc.</th>
+                                        <th scope="col">Endereço</th>
+                                        <th scope="col">Nº</th>
+                                        <th scope="col">Bairro</th>
+                                        <th scope="col">Cidade</th>
+                                        <th scope="col">UF</th>
+                                        <th scope="col">Telefone</th>
+                                        <th scope="col">Celular</th>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Editar</th>
+                                        <th scope="col">Excuir</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                     ');
-
-                    while($reg = mysqli_fetch_array($resu)){
-                        echo('
-                             
-                                        <tr>
-                                            <th scope="row">'.$reg['id'].'</th>
-                                            <td>'.$reg['nome'].'</td>
-                                            <td>'.$reg['email'].'</td>
-                                            <td>'.$reg['rg'].'</td>
-                                            <td>'.$reg['cpf_cnpj'].'</td>
-                                            <td>'.$reg['data_nasc'].'</td>
-                                            <td>'.$reg['endereco'].'</td>
-                                            <td>'.$reg['numero'].'</td>
-                                            <td>'.$reg['bairro'].'</td>
-                                            <td>'.$reg['cidade'].'</td>
-                                            <td>'.$reg['estado'].'</td>
-                                            <td>'.$reg['telefone'].'</td>
-                                            <td>'.$reg['celular'].'</td>
-                                            <td>'.$reg['admin'].'</td>
-                                            <td class="td-icone-acoes">
-                                                <a href="../functions/select_cliente.php?id='.$reg['id'].'" class="bi bi-pencil-fill icone-acoes cor-secundaria"></a>
-                                            </td>
-                                            <td class="td-icone-acoes">
-                                                <button type="button" class="bi bi-trash-fill icone-acoes cor-destaque" onclick="setId('.$reg['id'].');"></button>
-                                            </td>
-                                        </tr>                                           
+                    while($reg = mysqli_fetch_assoc($resu)){
+                        echo('                             
+                            <tr>
+                                <th scope="row">'.$reg['id'].'</th>
+                                <td>'.$reg['nome'].'</td>
+                                <td>'.$reg['email'].'</td>
+                                <td>'.$reg['rg'].'</td>
+                                <td>'.$reg['cpf_cnpj'].'</td>
+                                <td>'.$reg['data_nasc'].'</td>
+                                <td>'.$reg['endereco'].'</td>
+                                <td>'.$reg['numero'].'</td>
+                                <td>'.$reg['bairro'].'</td>
+                                <td>'.$reg['cidade'].'</td>
+                                <td>'.$reg['estado'].'</td>
+                                <td>'.$reg['telefone'].'</td>
+                                <td>'.$reg['celular'].'</td>
+                                <td>'.$reg['admin'].'</td>
+                                <td class="td-icone-acoes">
+                                    <a href="../functions/select_cliente.php?id='.$reg['id'].'" class="bi bi-pencil-fill icone-acoes cor-secundaria"></a>
+                                </td>
+                                <td class="td-icone-acoes">
+                                    <button type="button" class="bi bi-trash-fill icone-acoes cor-destaque" onclick="setId('.$reg['id'].');"></button>
+                                </td>
+                            </tr>                                           
                         ');                                    
                     }
                     
@@ -244,132 +238,12 @@
                         </table>
                     </div>
                     ');
-                    mysqli_close($conexao);
-                }
-                elseif ($_SESSION['admin'] == 1 && isset($_SESSION['cli_id'])){
-                    $admin = $_SESSION['cli_admin'] ? "checked" : "";
-                    echo('
-                        <form name="formAtualizar" method="post" action="../functions/atualizar_cliente.php">
-                            <input type="hidden" name="id" value="'.$_SESSION['cli_id'].'">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <div class="form-row justify-content-end">
-                                        <label class="form-check-label col-md-2" for="defaultCheck1">
-                                        Administrador
-                                        </label>
-                                        <input name="admin" class="form-check-input col-md-1" type="checkbox" value="1" id="defaultCheck1"'.$admin.'>
-                                    </div>                      
-                                    <div class="form-group">
-                                        <label>Nome</label>
-                                        <input name="nome" type="text" class="form-control" value="'.$_SESSION['cli_nome'].'" required>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-10">
-                                            <label>Endereço</label>
-                                            <input name="endereco" type="text" class="form-control" value="'.$_SESSION['cli_endereco'].'">
-                                        </div>
-                                        <div class="form-group col-md-2">
-                                            <label>Nº</label>
-                                            <input name="numero" type="text" class="form-control" value="'.$_SESSION['cli_numero'].'">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Cidade</label>
-                                        <input name="cidade" type="text" class="form-control" value="'.$_SESSION['cli_cidade'].'" required>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>Bairro</label>
-                                            <input name="bairro" type="text" class="form-control" value="'.$_SESSION['cli_bairro'].'">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Estado</label>
-                                            <select name="estado" class="form-control" required>
-                                                <option selected></option>
-                                                <option value="AC">Acre</option>
-                                                <option value="AL">Alagoas</option>
-                                                <option value="AP">Amapá</option>
-                                                <option value="AM">Amazonas</option>
-                                                <option value="BA">Bahia</option>
-                                                <option value="CE">Ceará</option>
-                                                <option value="DF">Distrito Federal</option>
-                                                <option value="ES">Espírito Santo</option>
-                                                <option value="GO">Goiás</option>
-                                                <option value="MA">Maranhão</option>
-                                                <option value="MT">Mato Grosso</option>
-                                                <option value="MS">Mato Grosso do Sul</option>
-                                                <option value="MG">Minas Gerais</option>
-                                                <option value="PA">Pará</option>
-                                                <option value="PB">Paraíba</option>
-                                                <option value="PR">Paraná</option>
-                                                <option value="PE">Pernambuco</option>
-                                                <option value="PI">Piauí</option>
-                                                <option value="RJ">Rio de Janeiro</option>
-                                                <option value="RN">Rio Grande do Norte</option>
-                                                <option value="RS">Rio Grande do Sul</option>
-                                                <option value="RO">Rondônia</option>
-                                                <option value="RR">Roraima</option>
-                                                <option value="SC">Santa Catarina</option>
-                                                <option value="SP">São Paulo</option>
-                                                <option value="SE">Sergipe</option>
-                                                <option value="TO">Tocantins</option>
-                                            </select>
-                                        </div>                            
-                                    </div>
-                                    <div class="form-group">
-                                        <label>E-mail</label>
-                                        <input name="email" type="text" class="form-control" value="'.$_SESSION['cli_email'].'" required>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>RG</label>
-                                            <input name="rg" type="text" class="form-control" value="'.$_SESSION['cli_rg'].'" required>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>CPF/CNPJ</label>
-                                            <input name="cpf_cnpj" type="text" class="form-control" value="'.$_SESSION['cli_cpf_cnpj'].'" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-4">
-                                            <label>Telefone</label>
-                                            <input name="telefone" type="text" class="form-control" value="'.$_SESSION['cli_telefone'].'" required>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label>Celular</label>
-                                            <input name="celular" type="text" class="form-control" value="'.$_SESSION['cli_celular'].'" required>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <label>Data Nasc.</label>
-                                            <input name="data_nasc" type="date" class="form-control" value="'.$_SESSION['cli_data_nasc'].'" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-outline-dark cor-secundaria btn-entrar" type="submit">Atualizar Cadastro</button>                                   
-                                </div>
-                            </div>
-                        </form>
-                    ');
-                    unset($_SESSION['cli_id']);
-                    unset($_SESSION['cli_admin']);
-                    unset($_SESSION['cli_nome']);
-                    unset($_SESSION['cli_endereco']);
-                    unset($_SESSION['cli_numero']);
-                    unset($_SESSION['cli_bairro']);
-                    unset($_SESSION['cli_cidade']);
-                    unset($_SESSION['cli_estado']);
-                    unset($_SESSION['cli_email']);
-                    unset($_SESSION['cli_cpf_cnpj']);
-                    unset($_SESSION['cli_rg']);
-                    unset($_SESSION['cli_telefone']);
-                    unset($_SESSION['cli_celular']);
-                    unset($_SESSION['cli_data_nasc']);
-                }
+                }                
                 else{
+                    $reg = mysqli_fetch_assoc($resu);
                     echo('
                         <form name="formAtualizar" method="post" action="../functions/atualizar_cliente.php">
-                            <input type="hidden" name="id" value="'.$_SESSION['id_cliente'].'">
+                            <input type="hidden" name="id" value="'.$reg['id_cliente'].'">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="TituloModalLongoExemplo">MEU CADASTRO</h5>
@@ -377,26 +251,26 @@
                                 <div class="modal-body">                        
                                     <div class="form-group">
                                         <label>Nome</label>
-                                        <input name="nome" type="text" class="form-control" value="'.$_SESSION['nome'].'" required>
+                                        <input name="nome" type="text" class="form-control" value="'.$reg['nome'].'" required>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-10">
                                             <label>Endereço</label>
-                                            <input name="endereco" type="text" class="form-control" value="'.$_SESSION['endereco'].'">
+                                            <input name="endereco" type="text" class="form-control" value="'.$reg['endereco'].'">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label>Nº</label>
-                                            <input name="numero" type="text" class="form-control" value="'.$_SESSION['numero'].'">
+                                            <input name="numero" type="text" class="form-control" value="'.$reg['numero'].'">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Cidade</label>
-                                        <input name="cidade" type="text" class="form-control" value="'.$_SESSION['cidade'].'" required>
+                                        <input name="cidade" type="text" class="form-control" value="'.$reg['cidade'].'" required>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label>Bairro</label>
-                                            <input name="bairro" type="text" class="form-control" value="'.$_SESSION['bairro'].'">
+                                            <input name="bairro" type="text" class="form-control" value="'.$reg['bairro'].'">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Estado</label>
@@ -434,30 +308,30 @@
                                     </div>
                                     <div class="form-group">
                                         <label>E-mail</label>
-                                        <input name="email" type="text" class="form-control" value="'.$_SESSION['email'].'" required>
+                                        <input name="email" type="text" class="form-control" value="'.$reg['email'].'" required>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label>RG</label>
-                                            <input name="rg" type="text" class="form-control" value="'.$_SESSION['rg'].'" required>
+                                            <input name="rg" type="text" class="form-control" value="'.$reg['rg'].'" required>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>CPF/CNPJ</label>
-                                            <input name="cpf_cnpj" type="text" class="form-control" value="'.$_SESSION['cpf_cnpj'].'" required>
+                                            <input name="cpf_cnpj" type="text" class="form-control" value="'.$reg['cpf_cnpj'].'" required>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label>Telefone</label>
-                                            <input name="telefone" type="text" class="form-control" value="'.$_SESSION['telefone'].'" required>
+                                            <input name="telefone" type="text" class="form-control" value="'.$reg['telefone'].'" required>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label>Celular</label>
-                                            <input name="celular" type="text" class="form-control" value="'.$_SESSION['celular'].'" required>
+                                            <input name="celular" type="text" class="form-control" value="'.$reg['celular'].'" required>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label>Data Nasc.</label>
-                                            <input name="data_nasc" type="date" class="form-control" value="'.$_SESSION['data_nasc'].'" required>
+                                            <input name="data_nasc" type="date" class="form-control" value="'.$reg['data_nasc'].'" required>
                                         </div>
                                     </div>
                                 </div>
@@ -652,10 +526,131 @@
         }
     ?>
 
+    <!-- Modal Atualizar Cadastro -->
+    <?php
+        if($_SESSION['admin'] == 1){
+            $reg = mysqli_fetch_assoc($resu);
+            $admin = $reg['admin'] == 1 ? "checked" : "";
+            echo('
+                <div class="modal fade" id="ModalAtualizar" tabindex="-1" role="dialog" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <form name="formAtualizar" method="post" action="">
+                        <input type="hidden" name="id" value="'.$reg['id'].'">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="TituloModalLongoExemplo">Atualizar Cadastro</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                <span aria-hidden="true"><i class="bi bi-x cor-destaque"></i></span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-row justify-content-end">
+                                    <label class="form-check-label col-md-4" for="defaultCheck1">
+                                    Administrador
+                                    </label>
+                                    <input name="admin" class="form-check-input col-md-1" type="checkbox" value="1" id="defaultCheck1" '.$admin.'>
+                                </div>                         
+                                <div class="form-group">
+                                    <label>Nome</label>
+                                    <input name="nome" type="text" class="form-control" value="'.$reg['nome'].'" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-10">
+                                        <label>Endereço</label>
+                                        <input name="endereco" type="text" class="form-control" value="'.$reg['endereco'].'">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label>Nº</label>
+                                        <input name="numero" type="text" class="form-control" value="'.$reg['numero'].'">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Cidade</label>
+                                    <input name="cidade" type="text" class="form-control" value="'.$reg['cidade'].'" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Bairro</label>
+                                        <input name="bairro" type="text" class="form-control" value="'.$reg['bairro'].'">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Estado</label>
+                                        <select name="estado" class="form-control" required>
+                                            <option selected></option>
+                                            <option value="AC">Acre</option>
+                                            <option value="AL">Alagoas</option>
+                                            <option value="AP">Amapá</option>
+                                            <option value="AM">Amazonas</option>
+                                            <option value="BA">Bahia</option>
+                                            <option value="CE">Ceará</option>
+                                            <option value="DF">Distrito Federal</option>
+                                            <option value="ES">Espírito Santo</option>
+                                            <option value="GO">Goiás</option>
+                                            <option value="MA">Maranhão</option>
+                                            <option value="MT">Mato Grosso</option>
+                                            <option value="MS">Mato Grosso do Sul</option>
+                                            <option value="MG">Minas Gerais</option>
+                                            <option value="PA">Pará</option>
+                                            <option value="PB">Paraíba</option>
+                                            <option value="PR">Paraná</option>
+                                            <option value="PE">Pernambuco</option>
+                                            <option value="PI">Piauí</option>
+                                            <option value="RJ">Rio de Janeiro</option>
+                                            <option value="RN">Rio Grande do Norte</option>
+                                            <option value="RS">Rio Grande do Sul</option>
+                                            <option value="RO">Rondônia</option>
+                                            <option value="RR">Roraima</option>
+                                            <option value="SC">Santa Catarina</option>
+                                            <option value="SP">São Paulo</option>
+                                            <option value="SE">Sergipe</option>
+                                            <option value="TO">Tocantins</option>
+                                        </select>
+                                    </div>                            
+                                </div>
+                                <div class="form-group">
+                                    <label>E-mail</label>
+                                    <input name="email" type="text" class="form-control" value="'.$reg['email'].'" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>RG</label>
+                                        <input name="rg" type="text" class="form-control" value="'.$reg['rg'].'" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>CPF/CNPJ</label>
+                                        <input name="cpf_cnpj" type="text" class="form-control" value="'.$reg['cpf_cnpj'].'" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label>Telefone</label>
+                                        <input name="telefone" type="text" class="form-control" value="'.$reg['telefone'].'" required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Celular</label>
+                                        <input name="celular" type="text" class="form-control" value="'.$reg['celular'].'" required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Data Nasc.</label>
+                                        <input name="data_nasc" type="date" class="form-control" value="'.$reg['data_nasc'].'" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-outline-dark cor-secundaria btn-entrar">Atualizar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        ');
+        }
+    ?>
+
     <!-- Modal Consulta -->
     <div class="modal fade" id="ModalConsulta" tabindex="-1" role="dialog" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form name="formCadastro" method="post" action="../functions/select_cliente.php">
+            <form name="formCadastro" method="post" action="">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="TituloModalLongoExemplo">Consultar Cliente</h5>
@@ -670,15 +665,15 @@
                         </div>
                         <div class="form-group">
                             <label>Cidade</label>
-                            <input name="cidade" type="text" class="form-control" required>
+                            <input name="cidade" type="text" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>CPF/CNPJ</label>
-                            <input name="cpf_cnpj" type="text" class="form-control" required>
+                            <input name="cpf_cnpj" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-outline-dark cor-secundaria btn-entrar">Cadastrar</button>
+                        <button id="btn-consulta" type="submit" class="btn btn-outline-dark cor-secundaria btn-entrar">Consultar</button>
                     </div>                    
                 </div>
             </form>
