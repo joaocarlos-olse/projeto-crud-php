@@ -36,7 +36,13 @@
     $resu = mysqli_query($conexao, $sql) or die (mysqli_connect_error());
     
     
-    if($reg = mysqli_fetch_assoc($resu)){
+    if(mysqli_num_rows($resu) > 0){
+        $registros = array();
+
+        while($reg = mysqli_fetch_assoc($resu)){
+            $registros[] = $reg;
+        }
+        $_SESSION['registros'] = $registros;
         header("Location: ../views/clientes.php");
     }else{
         $_SESSION['erro_select_cli'] = "Não foram localizados dados para o id informado!";

@@ -6,6 +6,21 @@
     if(!isset($_SESSION['id_cliente'])){            
         header("Location: login.php");
     }
+
+    if(!isset($_SESSION['registros'])){     
+        if($_SESSION['admin'] == 1){
+            header("Location: ../functions/select_cliente.php");
+        }
+        else{
+            header('Location: ../functions/select_cliente.php?id='.$_SESSION['id_cliente'].'');
+        }
+        
+    }
+
+    if(isset($_SESSION['registros'])){            
+        $registros = $_SESSION['registros'];
+        unset($_SESSION['registros']);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -33,8 +48,9 @@
     
     <script defer>
         function setId(id){
-            const a = document.querySelector("#linkExcluir");
-            a.href = "../functions/excluir_cliente.php?id="+id
+            id = parseInt(id);
+            //const a = document.querySelector("#linkExcluir");
+            //a.href = "../functions/excluir_cliente.php?id="+id
             $('#ModalConfirmarExcluir').modal('show');
         }
     </script>
@@ -146,11 +162,7 @@
                 }                
             ?>
 
-            <div class="gap-2 d-md-flex justify-content-end">
-                <a href="" data-toggle="modal" data-target="#ModalConsulta" class="btn-tabela bg-destaque cor-primaria">
-                    <i class="bi bi-search "></i>
-                    <span>Consultar</span>
-                </a>
+            <div class="gap-2 d-md-flex justify-content-end">                
 
                 <?php                    
                     if(!isset($_SESSION['cli_id'])){
@@ -160,7 +172,6 @@
                                 <span>Alterar Senha</span>
                             </a>
                         ');
-
                     }
 
                     if($_SESSION['admin'] == 1 && !isset($_SESSION['cli_id'])){
@@ -169,8 +180,11 @@
                             <i class="bi bi-plus-lg "></i>
                             <span>Novo Cadastro</span>
                         </a>
+                        <a href="" data-toggle="modal" data-target="#ModalConsulta" class="btn-tabela bg-destaque cor-primaria">
+                            <i class="bi bi-search "></i>
+                            <span>Consultar</span>
+                        </a>
                         ');
-
                     }
                 ?>                
                 <a href="login.php" class="btn-tabela bg-cor-secundaria cor-primaria">
@@ -206,7 +220,7 @@
                                 </thead>
                                 <tbody>
                     ');
-                    while($reg = mysqli_fetch_assoc($resu)){
+                    foreach($registros as $reg){
                         echo('                             
                             <tr>
                                 <th scope="row">'.$reg['id'].'</th>
@@ -240,10 +254,9 @@
                     ');
                 }                
                 else{
-                    $reg = mysqli_fetch_assoc($resu);
                     echo('
                         <form name="formAtualizar" method="post" action="../functions/atualizar_cliente.php">
-                            <input type="hidden" name="id" value="'.$reg['id_cliente'].'">
+                            <input type="hidden" name="id" value="'.$registros[0]['id'].'">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="TituloModalLongoExemplo">MEU CADASTRO</h5>
@@ -251,26 +264,26 @@
                                 <div class="modal-body">                        
                                     <div class="form-group">
                                         <label>Nome</label>
-                                        <input name="nome" type="text" class="form-control" value="'.$reg['nome'].'" required>
+                                        <input name="nome" type="text" class="form-control" value="'.$registros[0]['nome'].'" required>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-10">
                                             <label>Endereço</label>
-                                            <input name="endereco" type="text" class="form-control" value="'.$reg['endereco'].'">
+                                            <input name="endereco" type="text" class="form-control" value="'.$registros[0]['endereco'].'">
                                         </div>
                                         <div class="form-group col-md-2">
                                             <label>Nº</label>
-                                            <input name="numero" type="text" class="form-control" value="'.$reg['numero'].'">
+                                            <input name="numero" type="text" class="form-control" value="'.$registros[0]['numero'].'">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label>Cidade</label>
-                                        <input name="cidade" type="text" class="form-control" value="'.$reg['cidade'].'" required>
+                                        <input name="cidade" type="text" class="form-control" value="'.$registros[0]['cidade'].'" required>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label>Bairro</label>
-                                            <input name="bairro" type="text" class="form-control" value="'.$reg['bairro'].'">
+                                            <input name="bairro" type="text" class="form-control" value="'.$registros[0]['bairro'].'">
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Estado</label>
@@ -308,30 +321,30 @@
                                     </div>
                                     <div class="form-group">
                                         <label>E-mail</label>
-                                        <input name="email" type="text" class="form-control" value="'.$reg['email'].'" required>
+                                        <input name="email" type="text" class="form-control" value="'.$registros[0]['email'].'" required>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label>RG</label>
-                                            <input name="rg" type="text" class="form-control" value="'.$reg['rg'].'" required>
+                                            <input name="rg" type="text" class="form-control" value="'.$registros[0]['rg'].'" required>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>CPF/CNPJ</label>
-                                            <input name="cpf_cnpj" type="text" class="form-control" value="'.$reg['cpf_cnpj'].'" required>
+                                            <input name="cpf_cnpj" type="text" class="form-control" value="'.$registros[0]['cpf_cnpj'].'" required>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label>Telefone</label>
-                                            <input name="telefone" type="text" class="form-control" value="'.$reg['telefone'].'" required>
+                                            <input name="telefone" type="text" class="form-control" value="'.$registros[0]['telefone'].'" required>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label>Celular</label>
-                                            <input name="celular" type="text" class="form-control" value="'.$reg['celular'].'" required>
+                                            <input name="celular" type="text" class="form-control" value="'.$registros[0]['celular'].'" required>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label>Data Nasc.</label>
-                                            <input name="data_nasc" type="date" class="form-control" value="'.$reg['data_nasc'].'" required>
+                                            <input name="data_nasc" type="date" class="form-control" value="'.$registros[0]['data_nasc'].'" required>
                                         </div>
                                     </div>
                                 </div>
