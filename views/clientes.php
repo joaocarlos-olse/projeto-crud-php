@@ -19,7 +19,6 @@
 
     if(isset($_SESSION['registros'])){            
         $registros = $_SESSION['registros'];
-        unset($_SESSION['registros']);
     }
 ?>
 <!DOCTYPE html>
@@ -48,9 +47,8 @@
     
     <script defer>
         function setId(id){
-            id = parseInt(id);
-            //const a = document.querySelector("#linkExcluir");
-            //a.href = "../functions/excluir_cliente.php?id="+id
+            const a = document.querySelector("#linkExcluir");
+            a.href = "../functions/excluir_cliente.php?id="+id
             $('#ModalConfirmarExcluir').modal('show');
         }
     </script>
@@ -100,7 +98,7 @@
 
     <!-- CONTEUDO PRINCIPAL -->
     <div class="altura-minima mb-5">
-        <div class="container">
+        <div class="container-fluid">
 
             <h2 class="title mb-4 mt-5 cor-destaque">Cadastro de Clientes</h2>
 
@@ -542,7 +540,6 @@
     <!-- Modal Atualizar Cadastro -->
     <?php
         if($_SESSION['admin'] == 1){
-            $reg = mysqli_fetch_assoc($resu);
             $admin = $reg['admin'] == 1 ? "checked" : "";
             echo('
                 <div class="modal fade" id="ModalAtualizar" tabindex="-1" role="dialog" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
