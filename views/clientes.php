@@ -9,7 +9,7 @@
 
     if(!isset($_SESSION['registros'])){     
         if($_SESSION['admin'] == 1){
-            header("Location: ../functions/select_cliente.php");
+            header("Location: ../functions/select_cliente.php");            
         }
         else{
             header('Location: ../functions/select_cliente.php?id='.$_SESSION['id_cliente'].'');
@@ -19,6 +19,7 @@
 
     if(isset($_SESSION['registros'])){            
         $registros = $_SESSION['registros'];
+        unset($_SESSION['registros']);
     }
 ?>
 <!DOCTYPE html>
@@ -42,17 +43,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <!-- MEU CSS -->
     <link rel="stylesheet" href="../css/style.css">
+    <!-- MEU JS -->
+    <script src="../js/controle_modal.js" defer></script>
     <!-- MEU FAVICON -->
     <link rel="shortcut icon" href="../images/icons/logo.ico" type="image/x-icon">
-    
-    <script defer>
-        function setId(id){
-            const a = document.querySelector("#linkExcluir");
-            a.href = "../functions/excluir_cliente.php?id="+id
-            $('#ModalConfirmarExcluir').modal('show');
-        }
-    </script>
-
     <title>Cadastro de Clientes</title>
 </head>
 <body>
@@ -222,24 +216,24 @@
                         echo('                             
                             <tr>
                                 <th scope="row">'.$reg['id'].'</th>
-                                <td>'.$reg['nome'].'</td>
-                                <td>'.$reg['email'].'</td>
-                                <td>'.$reg['rg'].'</td>
-                                <td>'.$reg['cpf_cnpj'].'</td>
-                                <td>'.$reg['data_nasc'].'</td>
-                                <td>'.$reg['endereco'].'</td>
-                                <td>'.$reg['numero'].'</td>
-                                <td>'.$reg['bairro'].'</td>
-                                <td>'.$reg['cidade'].'</td>
-                                <td>'.$reg['estado'].'</td>
-                                <td>'.$reg['telefone'].'</td>
-                                <td>'.$reg['celular'].'</td>
-                                <td>'.$reg['admin'].'</td>
+                                <td id="nome'.$reg['id'].'">'.$reg['nome'].'</td>
+                                <td id="email'.$reg['id'].'">'.$reg['email'].'</td>
+                                <td id="rg'.$reg['id'].'">'.$reg['rg'].'</td>
+                                <td id="cpf_cnpj'.$reg['id'].'">'.$reg['cpf_cnpj'].'</td>
+                                <td id="data_nasc'.$reg['id'].'">'.$reg['data_nasc'].'</td>
+                                <td id="endereco'.$reg['id'].'">'.$reg['endereco'].'</td>
+                                <td id="numero'.$reg['id'].'">'.$reg['numero'].'</td>
+                                <td id="bairro'.$reg['id'].'">'.$reg['bairro'].'</td>
+                                <td id="cidade'.$reg['id'].'">'.$reg['cidade'].'</td>
+                                <td id="estado'.$reg['id'].'">'.$reg['estado'].'</td>
+                                <td id="telefone'.$reg['id'].'">'.$reg['telefone'].'</td>
+                                <td id="celular'.$reg['id'].'">'.$reg['celular'].'</td>
+                                <td id="admin'.$reg['id'].'">'.$reg['admin'].'</td>
                                 <td class="td-icone-acoes">
-                                    <a href="../functions/select_cliente.php?id='.$reg['id'].'" class="bi bi-pencil-fill icone-acoes cor-secundaria"></a>
+                                    <button type="button" class="bi bi-pencil-fill icone-acoes cor-secundaria" onclick="alterarCliId('.$reg['id'].');"></button>
                                 </td>
                                 <td class="td-icone-acoes">
-                                    <button type="button" class="bi bi-trash-fill icone-acoes cor-destaque" onclick="setId('.$reg['id'].');"></button>
+                                    <button type="button" class="bi bi-trash-fill icone-acoes cor-destaque" onclick="excluirCliId('.$reg['id'].');"></button>
                                 </td>
                             </tr>                                           
                         ');                                    
@@ -347,7 +341,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-outline-dark cor-secundaria btn-entrar" data-toggle="modal" data-target="#ModalConfirmarExcluir" type="button" onclick="setId('.$_SESSION['id_cliente'].');">Excluir Cadastro</button>
+                                    <button class="btn btn-outline-dark cor-secundaria btn-entrar" data-toggle="modal" data-target="#ModalConfirmarExcluir" type="button" onclick="excluirCliId('.$_SESSION['id_cliente'].');">Excluir Cadastro</button>
                                     <button class="btn btn-outline-dark cor-secundaria btn-entrar" type="submit">Atualizar Cadastro</button>
                                 </div>
                             </div>
@@ -540,12 +534,11 @@
     <!-- Modal Atualizar Cadastro -->
     <?php
         if($_SESSION['admin'] == 1){
-            $admin = $reg['admin'] == 1 ? "checked" : "";
             echo('
                 <div class="modal fade" id="ModalAtualizar" tabindex="-1" role="dialog" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
                 <div class="modal-dialog" role="document">
-                    <form name="formAtualizar" method="post" action="">
-                        <input type="hidden" name="id" value="'.$reg['id'].'">
+                    <form name="formAtualizar" method="post" action="../functions/atualizar_cliente.php">
+                        <input type="hidden" name="id" id="id_cli">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="TituloModalLongoExemplo">Atualizar Cadastro</h5>
@@ -558,34 +551,34 @@
                                     <label class="form-check-label col-md-4" for="defaultCheck1">
                                     Administrador
                                     </label>
-                                    <input name="admin" class="form-check-input col-md-1" type="checkbox" value="1" id="defaultCheck1" '.$admin.'>
+                                    <input name="admin" id="admin_cli" class="form-check-input col-md-1" type="checkbox" value="1">
                                 </div>                         
                                 <div class="form-group">
                                     <label>Nome</label>
-                                    <input name="nome" type="text" class="form-control" value="'.$reg['nome'].'" required>
+                                    <input name="nome" id="nome_cli" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-10">
                                         <label>Endereço</label>
-                                        <input name="endereco" type="text" class="form-control" value="'.$reg['endereco'].'">
+                                        <input name="endereco" id="endereco_cli" type="text" class="form-control">
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label>Nº</label>
-                                        <input name="numero" type="text" class="form-control" value="'.$reg['numero'].'">
+                                        <input name="numero" id="numero_cli" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Cidade</label>
-                                    <input name="cidade" type="text" class="form-control" value="'.$reg['cidade'].'" required>
+                                    <input name="cidade" id="cidade_cli" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>Bairro</label>
-                                        <input name="bairro" type="text" class="form-control" value="'.$reg['bairro'].'">
+                                        <input name="bairro" id="bairro_cli" type="text" class="form-control">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Estado</label>
-                                        <select name="estado" class="form-control" required>
+                                        <select name="estado" id="estado_cli" class="form-control">
                                             <option selected></option>
                                             <option value="AC">Acre</option>
                                             <option value="AL">Alagoas</option>
@@ -619,30 +612,30 @@
                                 </div>
                                 <div class="form-group">
                                     <label>E-mail</label>
-                                    <input name="email" type="text" class="form-control" value="'.$reg['email'].'" required>
+                                    <input name="email" id="email_cli" type="text" class="form-control" required>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>RG</label>
-                                        <input name="rg" type="text" class="form-control" value="'.$reg['rg'].'" required>
+                                        <input name="rg" id="rg_cli" type="text" class="form-control" required>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>CPF/CNPJ</label>
-                                        <input name="cpf_cnpj" type="text" class="form-control" value="'.$reg['cpf_cnpj'].'" required>
+                                        <input name="cpf_cnpj" id="cpf_cnpj_cli" type="text" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
                                         <label>Telefone</label>
-                                        <input name="telefone" type="text" class="form-control" value="'.$reg['telefone'].'" required>
+                                        <input name="telefone" id="telefone_cli" type="text" class="form-control" required>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>Celular</label>
-                                        <input name="celular" type="text" class="form-control" value="'.$reg['celular'].'" required>
+                                        <input name="celular" id="celular_cli" type="text" class="form-control" required>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>Data Nasc.</label>
-                                        <input name="data_nasc" type="date" class="form-control" value="'.$reg['data_nasc'].'" required>
+                                        <input name="data_nasc" id="data_nasc_cli" type="date" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
