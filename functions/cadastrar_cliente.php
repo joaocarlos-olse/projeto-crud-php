@@ -79,7 +79,7 @@
         mysqli_commit($conexao);
 
         if(isset($_SESSION["id_cliente"])){
-            header("Location: ../views/clientes.php");
+            header("Location: select_cliente.php");
         }
         else{
             header("Location: ../views/login.php");

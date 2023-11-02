@@ -150,35 +150,29 @@
                     unset($_SESSION['sucesso_excluir']);
                 }
                 if(isset($_SESSION['destruir_sessao'])){
-                    session_destroy();
+                    
                 }                
             ?>
 
             <div class="gap-2 d-md-flex justify-content-end">                
-
-                <?php                    
-                    if(!isset($_SESSION['cli_id'])){
-                        echo('
-                            <a href="" data-toggle="modal" data-target="#ModalAlterarSenha" class="btn-tabela bg-destaque cor-primaria">
-                                <i class="bi bi-key "></i>
-                                <span>Alterar Senha</span>
-                            </a>
-                        ');
-                    }
-
+                <?php
                     if($_SESSION['admin'] == 1 && !isset($_SESSION['cli_id'])){
                         echo('
-                        <a href="" data-toggle="modal" data-target="#ModalCadastro" class="btn-tabela bg-destaque cor-primaria">
-                            <i class="bi bi-plus-lg "></i>
-                            <span>Novo Cadastro</span>
-                        </a>
-                        <a href="" data-toggle="modal" data-target="#ModalConsulta" class="btn-tabela bg-destaque cor-primaria">
-                            <i class="bi bi-search "></i>
-                            <span>Consultar</span>
-                        </a>
+                            <a href="" data-toggle="modal" data-target="#ModalConsulta" class="btn-tabela bg-destaque cor-primaria">
+                                <i class="bi bi-search "></i>
+                                <span>Consultar</span>
+                            </a>
+                            <a href="" data-toggle="modal" data-target="#ModalCadastro" class="btn-tabela bg-destaque cor-primaria">
+                                <i class="bi bi-plus-lg "></i>
+                                <span>Novo Cadastro</span>
+                            </a>                        
                         ');
                     }
-                ?>                
+                ?>
+                <a href="" data-toggle="modal" data-target="#ModalAlterarSenha" class="btn-tabela bg-destaque cor-primaria">
+                    <i class="bi bi-key "></i>
+                    <span>Alterar Senha</span>
+                </a>
                 <a href="login.php" class="btn-tabela bg-cor-secundaria cor-primaria">
                     <i class="bi bi-file-earmark-pdf "></i>
                     <span>Emitir Relatório</span>
@@ -653,7 +647,7 @@
     <!-- Modal Consulta -->
     <div class="modal fade" id="ModalConsulta" tabindex="-1" role="dialog" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form name="formCadastro" method="post" action="">
+            <form name="formCadastro" method="post" action="../functions/select_cliente.php">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="TituloModalLongoExemplo">Consultar Cliente</h5>

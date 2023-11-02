@@ -20,13 +20,13 @@
 
         mysqli_commit($conexao);
 
-        $_SESSION['sucesso_excluir'] = "<strong>FEITO:</strong> Cadastro excluido!";
-        if($id != $_SESSION['id_cliente']){
-            header("Location: ../views/clientes.php");
+        if($_SESSION['admin'] == 1){
+            $_SESSION['sucesso_excluir'] = "<strong>FEITO:</strong> Cadastro excluido!";
+            header("Location: select_cliente.php");
         }
         else{
-            $_SESSION['destruir_sessao'] = 1;
-            header("Location: ../views/clientes.php");
+            session_destroy();
+            header("Location: ../views/login.php");
         }
         
     }
@@ -35,7 +35,7 @@
 
         throw $e;
         $_SESSION['erro_excluir'] = "<strong>ERRO:</strong><br> Cadastro não foi atualizado!";
-        header("Location: ../views/clientes.php");
+        header("Location: select_cliente.php");
     }
     finally{
         mysqli_close($conexao);        

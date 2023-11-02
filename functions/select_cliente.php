@@ -21,13 +21,13 @@
         $sql = "SELECT cli.*, log.admin FROM clientes cli INNER JOIN login_usuarios log ON cli.id = log.id_cliente WHERE cli.cidade LIKE '%$cidade%'";
     }    
     elseif(empty($nome) && empty($cidade) && !empty($cpf_cnpj)){
-        $sql = "SELECT cli.*, log.admin FROM clientes cli INNER JOIN login_usuarios log ON cli.id = log.id_cliente WHERE cli.cpf_cnpj = '$cpf_cnpj%'";
+        $sql = "SELECT cli.*, log.admin FROM clientes cli INNER JOIN login_usuarios log ON cli.id = log.id_cliente WHERE cli.cpf_cnpj = '$cpf_cnpj'";
     }    
     elseif(!empty($nome) && !empty($cidade) && empty($cpf_cnpj)){
         $sql = "SELECT cli.*, log.admin FROM clientes cli INNER JOIN login_usuarios log ON cli.id = log.id_cliente WHERE cli.nome LIKE '%$nome%' OR cli.cidade LIKE '%$cidade%'";
     }
     elseif(!empty($nome) && !empty($cidade) && !empty($cpf_cnpj)){
-        $sql = "SELECT cli.*, log.admin FROM clientes cli INNER JOIN login_usuarios log ON cli.id = log.id_cliente WHERE cli.nome LIKE '%$nome%' OR cli.cidade LIKE '%$cidade%' OR cli.cpf_cnpj = '$cpf_cnpj%'";
+        $sql = "SELECT cli.*, log.admin FROM clientes cli INNER JOIN login_usuarios log ON cli.id = log.id_cliente WHERE cli.nome LIKE '%$nome%' OR cli.cidade LIKE '%$cidade%' OR cli.cpf_cnpj = '$cpf_cnpj'";
     }
     else{
         $sql = "SELECT cli.*, log.admin FROM clientes cli INNER JOIN login_usuarios log ON cli.id = log.id_cliente ORDER BY cli.id";

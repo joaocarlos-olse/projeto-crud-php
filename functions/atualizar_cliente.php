@@ -24,7 +24,7 @@
     function ErrorMessage(string $message)
     {
         $_SESSION['erro_atualizacao'] = $message;
-        header("Location: ../views/clientes.php");
+        $_SESSION['admin'] == 1 ? header("Location: select_cliente.php") : header("Location: select_cliente.php?id=".$_SESSION['id_cliente']);
     }
 
     if (!$nome){
@@ -70,14 +70,14 @@
         mysqli_commit($conexao);
 
         $_SESSION['sucesso_atualizacao'] = "<strong>FEITO:</strong> Cadastro atualizado!";
-        header("Location: ../views/clientes.php");
+        $_SESSION['admin'] == 1 ? header("Location: select_cliente.php") : header("Location: select_cliente.php?id=".$_SESSION['id_cliente']);
     }
     catch (mysqli_exception $e){
         mysqli_rollback($conexao);
 
         throw $e;
         $_SESSION['erro_atualizacao'] = "<strong>ERRO:</strong><br> Cadastro não foi atualizado!";
-        header("Location: ../views/clientes.php");
+        $_SESSION['admin'] == 1 ? header("Location: select_cliente.php") : header("Location: select_cliente.php?id=".$_SESSION['id_cliente']);
     }
     finally{
         mysqli_close($conexao);        
