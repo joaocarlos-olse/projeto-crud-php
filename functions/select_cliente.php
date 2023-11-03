@@ -3,6 +3,10 @@
         session_start();        
     }
 
+    if(!isset($_SESSION['id_cliente'])){            
+        header("Location: login.php");
+    }
+
     include("../common/config.php");
 
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);

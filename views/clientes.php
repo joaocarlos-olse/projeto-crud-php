@@ -13,14 +13,18 @@
         }
         else{
             header('Location: ../functions/select_cliente.php?id='.$_SESSION['id_cliente'].'');
-        }
-        
+        }        
     }
 
     if(isset($_SESSION['registros'])){            
         $registros = $_SESSION['registros'];
         unset($_SESSION['registros']);
     }
+
+    $admin = $_SESSION['admin'] == 1 ? 'onload="setEstado()' : "";
+
+    $estados = array("AC" => "Acre", "AL" => "Alagoas", "AP" => "Amapá", "AM" => "Amazonas", "BA" => "Bahia", "CE" => "Ceará", "DF" => "Distrito Federal", "ES" => "Espírito Santo", "GO" => "Goiás", "MA" => "Maranhão", "MT" => "Mato Grosso", "MS" => "Mato Grosso do Sul", "MG" => "Minas Gerais", "PA" => "Pará", "PB" => "Paraíba", "PR" => "Paraná", "PE" => "Pernambuco", "PI" => "Piauí", "RJ" => "Rio de Janeiro", "RN" => "Rio Grande do Norte", "RS" => "Rio Grande do Sul", "RO" => "Rondônia", "RR" => "Roraima", "SC" => "Santa Catarina", "SP" => "São Paulo", "SE" => "Sergipe", "TO" => "Tocantins");
+    
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -44,7 +48,7 @@
     <!-- MEU CSS -->
     <link rel="stylesheet" href="../css/style.css">
     <!-- MEU JS -->
-    <script src="../js/controle_modal.js" defer></script>
+    <script src="../js/controle_modal.js"></script>
     <!-- MEU FAVICON -->
     <link rel="shortcut icon" href="../images/icons/logo.ico" type="image/x-icon">
     <title>Cadastro de Clientes</title>
@@ -148,12 +152,9 @@
                     </div>
                     ');
                     unset($_SESSION['sucesso_excluir']);
-                }
-                if(isset($_SESSION['destruir_sessao'])){
-                    
-                }                
+                }              
             ?>
-
+            
             <div class="gap-2 d-md-flex justify-content-end">                
                 <?php
                     if($_SESSION['admin'] == 1 && !isset($_SESSION['cli_id'])){
@@ -232,7 +233,6 @@
                             </tr>                                           
                         ');                                    
                     }
-                    
                     echo('
                             </tbody>
                         </table>
@@ -272,36 +272,13 @@
                                             <input name="bairro" type="text" class="form-control" value="'.$registros[0]['bairro'].'">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label>Estado</label>
-                                            <select name="estado" class="form-control" required>
-                                                <option selected></option>
-                                                <option value="AC">Acre</option>
-                                                <option value="AL">Alagoas</option>
-                                                <option value="AP">Amapá</option>
-                                                <option value="AM">Amazonas</option>
-                                                <option value="BA">Bahia</option>
-                                                <option value="CE">Ceará</option>
-                                                <option value="DF">Distrito Federal</option>
-                                                <option value="ES">Espírito Santo</option>
-                                                <option value="GO">Goiás</option>
-                                                <option value="MA">Maranhão</option>
-                                                <option value="MT">Mato Grosso</option>
-                                                <option value="MS">Mato Grosso do Sul</option>
-                                                <option value="MG">Minas Gerais</option>
-                                                <option value="PA">Pará</option>
-                                                <option value="PB">Paraíba</option>
-                                                <option value="PR">Paraná</option>
-                                                <option value="PE">Pernambuco</option>
-                                                <option value="PI">Piauí</option>
-                                                <option value="RJ">Rio de Janeiro</option>
-                                                <option value="RN">Rio Grande do Norte</option>
-                                                <option value="RS">Rio Grande do Sul</option>
-                                                <option value="RO">Rondônia</option>
-                                                <option value="RR">Roraima</option>
-                                                <option value="SC">Santa Catarina</option>
-                                                <option value="SP">São Paulo</option>
-                                                <option value="SE">Sergipe</option>
-                                                <option value="TO">Tocantins</option>
+                                            <label name="'.$registros[0]['estado'].'" id="label_estado_cliente">Estado</label>
+                                            <select name="estado" id="estado_cliente" class="form-control">
+                                                <option selected></option>');
+                                            foreach ($estados as $sigla => $estado) {
+                                                echo('<option value="'.$sigla.'">'.$estado.'</option>');
+                                            }
+                                        echo('
                                             </select>
                                         </div>                            
                                     </div>
@@ -454,34 +431,11 @@
                                     <div class="form-group col-md-6">
                                         <label>Estado</label>
                                         <select name="estado" class="form-control">
-                                            <option selected></option>
-                                            <option value="AC">Acre</option>
-                                            <option value="AL">Alagoas</option>
-                                            <option value="AP">Amapá</option>
-                                            <option value="AM">Amazonas</option>
-                                            <option value="BA">Bahia</option>
-                                            <option value="CE">Ceará</option>
-                                            <option value="DF">Distrito Federal</option>
-                                            <option value="ES">Espírito Santo</option>
-                                            <option value="GO">Goiás</option>
-                                            <option value="MA">Maranhão</option>
-                                            <option value="MT">Mato Grosso</option>
-                                            <option value="MS">Mato Grosso do Sul</option>
-                                            <option value="MG">Minas Gerais</option>
-                                            <option value="PA">Pará</option>
-                                            <option value="PB">Paraíba</option>
-                                            <option value="PR">Paraná</option>
-                                            <option value="PE">Pernambuco</option>
-                                            <option value="PI">Piauí</option>
-                                            <option value="RJ">Rio de Janeiro</option>
-                                            <option value="RN">Rio Grande do Norte</option>
-                                            <option value="RS">Rio Grande do Sul</option>
-                                            <option value="RO">Rondônia</option>
-                                            <option value="RR">Roraima</option>
-                                            <option value="SC">Santa Catarina</option>
-                                            <option value="SP">São Paulo</option>
-                                            <option value="SE">Sergipe</option>
-                                            <option value="TO">Tocantins</option>
+                                        <option selected></option>');
+                                            foreach ($estados as $sigla => $estado) {
+                                                echo('<option value="'.$sigla.'">'.$estado.'</option>');
+                                            }
+                                        echo('
                                         </select>
                                     </div>                            
                                 </div>
@@ -573,34 +527,11 @@
                                     <div class="form-group col-md-6">
                                         <label>Estado</label>
                                         <select name="estado" id="estado_cli" class="form-control">
-                                            <option selected></option>
-                                            <option value="AC">Acre</option>
-                                            <option value="AL">Alagoas</option>
-                                            <option value="AP">Amapá</option>
-                                            <option value="AM">Amazonas</option>
-                                            <option value="BA">Bahia</option>
-                                            <option value="CE">Ceará</option>
-                                            <option value="DF">Distrito Federal</option>
-                                            <option value="ES">Espírito Santo</option>
-                                            <option value="GO">Goiás</option>
-                                            <option value="MA">Maranhão</option>
-                                            <option value="MT">Mato Grosso</option>
-                                            <option value="MS">Mato Grosso do Sul</option>
-                                            <option value="MG">Minas Gerais</option>
-                                            <option value="PA">Pará</option>
-                                            <option value="PB">Paraíba</option>
-                                            <option value="PR">Paraná</option>
-                                            <option value="PE">Pernambuco</option>
-                                            <option value="PI">Piauí</option>
-                                            <option value="RJ">Rio de Janeiro</option>
-                                            <option value="RN">Rio Grande do Norte</option>
-                                            <option value="RS">Rio Grande do Sul</option>
-                                            <option value="RO">Rondônia</option>
-                                            <option value="RR">Roraima</option>
-                                            <option value="SC">Santa Catarina</option>
-                                            <option value="SP">São Paulo</option>
-                                            <option value="SE">Sergipe</option>
-                                            <option value="TO">Tocantins</option>
+                                            <option selected></option>');
+                                        foreach ($estados as $sigla => $estado) {
+                                            echo('<option value="'.$sigla.'">'.$estado.'</option>');
+                                        }
+                                        echo('
                                         </select>
                                     </div>                            
                                 </div>
@@ -681,30 +612,25 @@
     <div class="modal fade" id="ModalConfirmarExcluir" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="TituloModalCentralizado">ATENÇÃO!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                <span aria-hidden="true"><i class="bi bi-x cor-destaque"></i></span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Tem certeza que deseja excluir seu cadastro?
-            </div>
-            <div class="modal-footer">
-                <a href="" data-dismiss="modal" class="btn-tabela bg-destaque cor-primaria">
-                    <i class="bi bi-hand-thumbs-down "></i>
-                    <span>Não</span>
-                </a>
-                <?php
-                    echo('
-                        <a href="" id="linkExcluir" class="btn-tabela bg-cor-secundaria cor-primaria">
-                            <i class="bi bi-hand-thumbs-up "></i>
-                            <span>Sim</span>
-                        </a>                
-                    ')
-                ?>
-
-            </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="TituloModalCentralizado">ATENÇÃO!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true"><i class="bi bi-x cor-destaque"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Tem certeza que deseja excluir seu cadastro?
+                </div>
+                <div class="modal-footer">
+                    <a href="" data-dismiss="modal" class="btn-tabela bg-destaque cor-primaria">
+                        <i class="bi bi-hand-thumbs-down "></i>
+                        <span>Não</span>
+                    </a>
+                    <a href="" id="linkExcluir" class="btn-tabela bg-cor-secundaria cor-primaria">
+                        <i class="bi bi-hand-thumbs-up "></i>
+                        <span>Sim</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -750,7 +676,6 @@
                         <button class="btn btn-outline-dark cor-secundaria btn-entrar" type="submit">ALTERAR</button>
                     </div>
                 </fomr>
-            </div>
             </div>
         </div>
     </div>

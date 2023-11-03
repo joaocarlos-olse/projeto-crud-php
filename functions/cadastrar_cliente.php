@@ -72,7 +72,7 @@
 
         $query = mysqli_query($conexao, $sql);
 
-        $_SESSION['sucesso_cadastro'] = "<strong>FEITO:</strong>Cadastro realizado!";
+        $_SESSION['sucesso_cadastro'] = "<strong>FEITO:</strong> Cadastro realizado!";
         $_SESSION['usuario'] = $email;
         $_SESSION['senha_provisoria'] = $cpf_cnpj;
 
@@ -90,7 +90,7 @@
         mysqli_rollback($conexao);
 
         throw $e;
-        $_SESSION['erro_cadastro'] = "<strong>ERRO:</strong><br>Cadastro não foi realizado!";
+        $_SESSION['erro_cadastro'] = "<strong>ERRO:</strong><br> Cadastro não foi realizado!";
         header("Location: ../views/login.php");
     }
     finally{

@@ -20,7 +20,7 @@
 
         mysqli_commit($conexao);
 
-        if($_SESSION['admin'] == 1){
+        if($_SESSION['admin'] == 1 && $id != $_SESSION['id_cliente']){
             $_SESSION['sucesso_excluir'] = "<strong>FEITO:</strong> Cadastro excluido!";
             header("Location: select_cliente.php");
         }
