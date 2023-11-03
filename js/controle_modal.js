@@ -1,9 +1,15 @@
+// Lista de Chave: Valor, dos estados brasileiros
+const estados = [{sigla: "AC", nome: "Acre"}, {sigla: "AL", nome: "Alagoas"}, {sigla: "AP", nome: "Amapá"}, {sigla: "AM", nome: "Amazonas"}, {sigla: "BA", nome: "Bahia"}, {sigla: "CE", nome: "Ceará"}, {sigla: "DF", nome: "Distrito Federal"}, {sigla: "ES", nome: "Espírito Santo"}, {sigla: "GO", nome: "Goiás"}, {sigla: "MA", nome: "Maranhão"}, {sigla: "MT", nome: "Mato Grosso"}, {sigla: "MS", nome: "Mato Grosso do Sul"}, {sigla: "MG", nome: "Minas Gerais"}, {sigla: "PA", nome: "Pará"}, {sigla: "PB", nome: "Paraíba"}, {sigla: "PR", nome: "Paraná"}, {sigla: "PE", nome: "Pernambuco"}, {sigla: "PI", nome: "Piauí"}, {sigla: "RJ", nome: "Rio de Janeiro"}, {sigla: "RN", nome: "Rio Grande do Norte"}, {sigla: "RS", nome: "Rio Grande do Sul"}, {sigla: "RO", nome: "Rondônia"}, {sigla: "RR", nome: "Roraima"}, {sigla: "SC", nome: "Santa Catarina"}, {sigla: "SP", nome: "São Paulo"}, {sigla: "SE", nome: "Sergipe"}, {sigla: "TO", nome: "Tocantins"}];
+
+
+// Coloca como parametro GET o id do cliente que vai ser excluido
 function excluirCliId(id){
     const a = document.querySelector("#linkExcluir");
     a.href = "../functions/excluir_cliente.php?id="+id
     $('#ModalConfirmarExcluir').modal('show');
 }
 
+// Preenche os inputs do modal de alteração do cadastro
 function alterarCliId(id){
     const id_cli = document.querySelector("#id_cli");
     id_cli.value = id;
@@ -51,180 +57,27 @@ function alterarCliId(id){
 
     const estado_cli = document.querySelector("#estado_cli");
     if($("td#estado"+id).text() != ""){
-        const estado = $("td#estado"+id).text();
-        switch(estado){
-            case "AC":
-                estado_cli.value = "AC";
-                break;
-            case "AL":
-                estado_cli.value = "AL";
-                break;
-            case "AP":
-                estado_cli.value = "AP";
-                break;
-            case "AM":
-                estado_cli.value = "AM";
-                break;
-            case "BA":
-                estado_cli.value = "BA";
-                break;
-            case "CE":
-                estado_cli.value = "CE";
-                break;
-            case "DF":
-                estado_cli.value = "DF";
-                break;
-            case "ES":
-                estado_cli.value = "ES";
-                break;
-            case "GO":
-                estado_cli.value = "GO";
-                break;
-            case "MA":
-                estado_cli.value = "MA";
-                break;
-            case "MT":
-                estado_cli.value = "MT";
-                break;
-            case "MS":
-                estado_cli.value = "MS";
-                break;
-            case "MG":
-                estado_cli.value = "MG";
-                break;
-            case "PA":
-                estado_cli.value = "PA";
-                break;
-            case "PB":
-                estado_cli.value = "PB";
-                break;
-            case "PR":
-                estado_cli.value = "PR";
-                break;
-            case "PE":
-                estado_cli.value = "PE";
-                break;
-            case "PI":
-                estado_cli.value = "PI";
-                break;
-            case "RJ":
-                estado_cli.value = "RJ";
-                break;
-            case "RN":
-                estado_cli.value = "RN";
-                break;
-            case "RS":
-                estado_cli.value = "RS";
-                break;
-            case "RO":
-                estado_cli.value = "RO";
-                break;
-            case "RR":
-                estado_cli.value = "RR";
-                break;
-            case "SC":
-                estado_cli.value = "SC";
-                break;
-            case "SP":
-                estado_cli.value = "SP";
-                break;
-            case "SE":
-                estado_cli.value = "SE";
-                break;
-            case "TO":
-                estado_cli.value = "TO";
-        }
+        const estado_selecionado = $("td#estado"+id).text();
+        estados.forEach(function(estado) {
+            if (estado.sigla === estado_selecionado) {
+                estado_cli.value = estado.sigla;
+            }
+        });
     }
     $('#ModalAtualizar').modal('show');
 }
 
-document.addEventListener("DOMContentLoaded", function setEstado(){
+// Preenche o select com o estado do cliente comum (não admin)
+document.addEventListener("DOMContentLoaded", function (){
     var label_estado_cli = document.getElementById("label_estado_cliente");
     var estado_selecionado = label_estado_cli.getAttribute("name");
     const estado_cliente = document.querySelector("#estado_cliente");
 
     if(estado_selecionado != "" || estado_selecionado != null){
-        switch(estado_selecionado){
-            case "AC":
-                estado_cliente.value = "AC";
-                break;
-            case "AL":
-                estado_cliente.value = "AL";
-                break;
-            case "AP":
-                estado_cliente.value = "AP";
-                break;
-            case "AM":
-                estado_cliente.value = "AM";
-                break;
-            case "BA":
-                estado_cliente.value = "BA";
-                break;
-            case "CE":
-                estado_cliente.value = "CE";
-                break;
-            case "DF":
-                estado_cliente.value = "DF";
-                break;
-            case "ES":
-                estado_cliente.value = "ES";
-                break;
-            case "GO":
-                estado_cliente.value = "GO";
-                break;
-            case "MA":
-                estado_cliente.value = "MA";
-                break;
-            case "MT":
-                estado_cliente.value = "MT";
-                break;
-            case "MS":
-                estado_cliente.value = "MS";
-                break;
-            case "MG":
-                estado_cliente.value = "MG";
-                break;
-            case "PA":
-                estado_cliente.value = "PA";
-                break;
-            case "PB":
-                estado_cliente.value = "PB";
-                break;
-            case "PR":
-                estado_cliente.value = "PR";
-                break;
-            case "PE":
-                estado_cliente.value = "PE";
-                break;
-            case "PI":
-                estado_cliente.value = "PI";
-                break;
-            case "RJ":
-                estado_cliente.value = "RJ";
-                break;
-            case "RN":
-                estado_cliente.value = "RN";
-                break;
-            case "RS":
-                estado_cliente.value = "RS";
-                break;
-            case "RO":
-                estado_cliente.value = "RO";
-                break;
-            case "RR":
-                estado_cliente.value = "RR";
-                break;
-            case "SC":
-                estado_cliente.value = "SC";
-                break;
-            case "SP":
-                estado_cliente.value = "SP";
-                break;
-            case "SE":
-                estado_cliente.value = "SE";
-                break;
-            case "TO":
-                estado_cliente.value = "TO";
-        }
+        estados.forEach(function(estado) {
+            if (estado.sigla === estado_selecionado) {
+                estado_cliente.value = estado.sigla;
+            }
+        });
     }    
 });
