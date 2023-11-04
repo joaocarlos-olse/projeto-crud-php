@@ -12,8 +12,11 @@
 body{
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
+}
+
+@page {
+    size: A4;
+    margin: 1vh 1vw;
 }
 
 .bg-claro{
@@ -84,106 +87,164 @@ body{
     flex: 90%;    
 }
 
-.linha-bottom{
-    border-bottom: 1px solid var(--preto);
-}
-
 /* CABEÇALHO */
 .header{
     display: flex;
     flex-direction: column;
-    height: 15%;
-    width: 90%;
-    margin: auto;
+    margin: 1vh 2vw;
     align-items: center;
 }
 
 .logo{
     display: flex;
     align-items: center;
-    margin-right: 20px;
 }
 
-.logo img{
+.logo-cliente img{
+    display: inline-block;
     height: 80px;
     width: 80px;
+    margin-right: 10px;
 }
 
-.logo span{
+.logo-clientes img{
+    display: inline-block;
+    height: 60px;
+    width: 60px;
+    margin-right: 10px;
+}
+
+.logo-cliente-span{
+    display: inline-block;
     font-size: 2.2em;
     font-weight: 500;
-    line-height: 95%;
+    line-height: 120%;
 }
 
-.titulo-pag{
-    margin-top: 50px;
-    margin-bottom: 50px;
-    font-size: 2.7em;
+.logo-clientes-span{
+    display: inline-block;
+    font-size: 1.8em;
+    font-weight: 500;
+    line-height: 120%;
+}
+
+.titulo-cliente{
+    display: flex;
+    margin: 40px 0px 20px 0px;
+}
+
+.titulo-cliente h1{
+    font-size: 4.5vw;
     font-weight: 700;
 }
 
+.titulo-clientes{
+    margin: 25px 0px 0px 0px;
+}
+
+.titulo-clientes h1{
+    font-size: 3.5vw;
+    font-weight: 700;
+    line-height: 50%;
+    margin: 0px;
+}
+
+/* CONTEUDO PRINCIPAL */
 .main{
     display: flex;
     flex-direction: column;
-    width: 90%;
-    height: 85%;
-    margin: auto;
+    margin: 1vh 2vw;
 }
 
-.linha{
+.linha-cliente{
     display: flex;
     margin-bottom: 40px;
 }
 
-.sessao{
-    margin: 25px 10px;
-    padding: 10px 25px;
-    border: 2px solid var(--azul);
-    border-radius: 10px;
+.linha-clientes{
+    display: flex;
+    margin: 8px 0px;
 }
 
-.sessao legend{
+#primeira-linha-clientes{
+    display: flex;
+    margin: 0px 0px 8px 0px;
+}
+
+.legenda-m40{
     width: auto;
     margin: 0px 0px 40px 30px;
     padding: 0px 10px;
-    font-size: 22px;
+    font-size: 16pt;
     font-weight: 500;
     text-transform: uppercase;
 }
 
-.sessao label{
-    font-size: 20px;
+.legenda-m10{
+    width: auto;
+    margin: 0px 10px;
+    padding: 0px 10px;
+    font-size: 16pt;
     font-weight: 500;
-    margin-right: 10px;
+    text-transform: uppercase;
+}
+
+.sessao-cliente{
+    margin: 0px 10px 30px 10px;
+    padding: 10px 25px;
+    border: 1.8px solid var(--azul);
+    border-radius: 10px;
+}
+
+.sessao-clientes{
+    margin: 0px 10px 12px 10px;
+    padding: 0px 15px;
+    border: 1.8px solid var(--azul);
+    border-radius: 10px;
+}
+
+.sessao-label{
+    font-size: 12pt;
+    font-weight: 500;
+    margin-right: 5px;
     line-height: 2px;
 }
 
-.sessao span{
-    font-size: 20px;
+.sessao-span{
+    font-size: 12pt;
     font-weight: 300;
     line-height: 2px;
 }
 
+.sessao-hr{
+    border-top: 1px solid var(--azul);
+    margin: 4px 0px;
+}
+
+/* RODAPÉ */
 .footer{
     display: flex;
     flex-direction: column;
-    width: 90%;
-    height: auto;
-    margin: auto;
+    position: absolute;
+    bottom: 0;
+    /* height: 10vh; */
+    width: 96vw;
+    margin: 1vh 2vw;
 }
 
 .footer hr{
-    border-top: 3px solid var(--azul);
-    padding: 10px;
-    margin: 40px 10px 0px 10px;
+    border-top: 1.8px solid var(--azul);
+    padding: 0px 10px;
+    margin: auto 10px 5px 10px;
 }
 
 .data-hora{
     text-align: center;
-    margin: 0px 10px 10px 10px;
+    margin: 0px 10px 0px 10px;
 }
 
 .data-hora span{
-    font-size: 22px;
+    font-size: 12pt;
     font-weight: 500;
+    line-height: 100%;
 }
