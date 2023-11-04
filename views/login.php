@@ -57,9 +57,6 @@
                         <i class="bi bi-person icone-input"></i>
                     </div>
                     <input name="usuario" type="email" class="form-control" id="validationCustomUsername" placeholder="Usuário" aria-describedby="inputGroupPrepend" required>
-                    <div class="invalid-feedback">
-                        Por favor, infomre o usuário!
-                    </div>
                 </div>
                 <!-- SENHA -->
                 <div class="input-group">
@@ -67,9 +64,6 @@
                         <i class="bi bi-key icone-input"></i>
                     </div>
                     <input name="senha" type="password" class="form-control" id="validationCustomPass" placeholder="Senha" aria-describedby="inputGroupPrepend" required>
-                    <div class="invalid-feedback">
-                        Por favor, infomre a senha!
-                    </div>
                 </div>
                 <div class="col-12">
                     <?php
@@ -101,10 +95,27 @@
                             unset($_SESSION['usuario']);
                             unset($_SESSION['senha_provisoria']);
                         }
+                        if(isset($_SESSION['erro_usuario'])){            
+                            echo('
+                            <div class="alert alert-danger erro-login" role="alert">
+                                '.$_SESSION['erro_usuario'].'
+                            </div>
+                            ');
+                            unset($_SESSION['erro_usuario']);
+                        }
+                        if(isset($_SESSION['sucesso_senha'])){            
+                            echo('
+                            <div class="alert alert-success erro-login" role="alert">
+                                '.$_SESSION['sucesso_senha'].'
+                            </div>
+                            ');
+                            unset($_SESSION['sucesso_senha']);
+                        }
                     ?>
+                        
                     <div class="row justify-content-between">
                         <div class="col-md-8 botao-esqueceu-senha">
-                            <a href="" class="cor-secundaria" id="esqueceu-senha">Esqueceu a senha?</a>
+                            <a href="" class="cor-secundaria" id="esqueceu-senha" data-toggle="modal" data-target="#ModalAlterarSenha">Esqueceu a senha?</a>
                         </div>
                         <div class="col-md-4">
                             <button class="btn btn-outline-dark cor-secundaria btn-entrar" type="submit">ENTRAR</button>
@@ -199,6 +210,57 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- MODAL ESQUECEU A SENHA -->
+    <div class="modal fade" id="ModalAlterarSenha" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true"><i class="bi bi-x cor-destaque"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-signin" name="formAlterarSenha" method="post" action="../functions/alterar_senha.php">
+                    <h1 class="h1 mb-3 alterar-senha">ALTERAR SENHA</h1>
+                    <!-- EMAIL -->
+                    <div class="input-group">
+                        <div class="input-group-prepend bg-cor-secundaria">
+                            <i class="bi bi-at icone-input"></i>
+                        </div>
+                        <input name="email" type="text" class="form-control" id="validationCustomUsername" placeholder="E-mail" aria-describedby="inputGroupPrepend" required>
+                    </div>
+                    <!-- NOVA SENHA 1 -->
+                    <div class="input-group">
+                        <div class="input-group-prepend bg-cor-secundaria">
+                            <i class="bi bi-key icone-input"></i>
+                        </div>
+                        <input name="novasenha" type="password" class="form-control" id="validationCustomUsername" placeholder="Nova Senha" aria-describedby="inputGroupPrepend" required>
+                    </div>
+                    <!-- NOVA SENHA 2 -->
+                    <div class="input-group">
+                        <div class="input-group-prepend bg-cor-secundaria">
+                            <i class="bi bi-key icone-input"></i>
+                        </div>
+                        <input name="confirmacaosenha" type="password" class="form-control" id="validationCustomPass" placeholder="Repita a senha" aria-describedby="inputGroupPrepend" required>
+                    </div>
+                    <?php
+                        if(isset($_SESSION['validacao'])){            
+                            echo('
+                            <div class="alert alert-danger erro-login" role="alert">
+                                '.$_SESSION['validacao'].'
+                            </div>
+                            ');
+                            unset($_SESSION['validacao']);
+                        }
+                    ?>
+                    <div class="botao-cadastro">
+                        <button class="btn btn-outline-dark cor-secundaria btn-entrar" type="submit">ALTERAR</button>
+                    </div>
+                </fomr>
+            </div>
         </div>
     </div>
 </body>
