@@ -93,6 +93,7 @@ body{
     flex-direction: column;
     margin: 1vh 2vw;
     align-items: center;
+    width: 96vw;
 }
 
 .logo{
@@ -154,6 +155,7 @@ body{
     display: flex;
     flex-direction: column;
     margin: 1vh 2vw;
+    width: 96vw;
 }
 
 .linha-cliente{
@@ -225,9 +227,8 @@ body{
 .footer{
     display: flex;
     flex-direction: column;
-    position: absolute;
-    bottom: 0;
-    /* height: 10vh; */
+    position: fixed;
+    bottom: 0px;
     width: 96vw;
     margin: 1vh 2vw;
 }

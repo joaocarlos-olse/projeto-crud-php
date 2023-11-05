@@ -7,7 +7,7 @@
         header("Location: login.php");
     }
 
-    if(!isset($_SESSION['registros'])){     
+    if(isset($_SESSION['id_cliente']) && !isset($_SESSION['registros'])){     
         if($_SESSION['admin'] == 1){
             header("Location: ../functions/select_cliente.php");            
         }
@@ -147,11 +147,19 @@
                     ');
                     unset($_SESSION['sucesso_excluir']);
                 }              
+                if(isset($_SESSION['erro_select_cli'])){            
+                    echo('
+                    <div class="alert alert-danger erro-login" role="alert">
+                        '.$_SESSION['erro_select_cli'].'
+                    </div>
+                    ');
+                    unset($_SESSION['erro_select_cli']);
+                }              
             ?>
             
             <div class="gap-2 d-md-flex justify-content-end">                
                 <?php
-                    if($_SESSION['admin'] == 1 && !isset($_SESSION['cli_id'])){
+                    if($_SESSION['admin'] == 1){
                         echo('
                             <a href="" data-toggle="modal" data-target="#ModalConsulta" class="btn-tabela bg-destaque cor-primaria">
                                 <i class="bi bi-search "></i>
@@ -160,6 +168,18 @@
                             <a href="" data-toggle="modal" data-target="#ModalCadastro" class="btn-tabela bg-destaque cor-primaria">
                                 <i class="bi bi-plus-lg "></i>
                                 <span>Novo Cadastro</span>
+                            </a>
+                            <a href="../common/relatorio_clientes.php" target="_blank" class="btn-tabela bg-cor-secundaria cor-primaria">
+                                <i class="bi bi-file-earmark-pdf "></i>
+                                <span>Emitir Relatório</span>
+                            </a>
+                        ');
+                    }
+                    else{
+                        echo('
+                            <a href="../common/relatorio_cliente.php" target="_blank" class="btn-tabela bg-cor-secundaria cor-primaria">
+                                <i class="bi bi-file-earmark-pdf "></i>
+                                <span>Emitir Relatório</span>
                             </a>                        
                         ');
                     }
@@ -167,10 +187,6 @@
                 <a href="" data-toggle="modal" data-target="#ModalAlterarSenha" class="btn-tabela bg-destaque cor-primaria">
                     <i class="bi bi-key "></i>
                     <span>Alterar Senha</span>
-                </a>
-                <a href="login.php" class="btn-tabela bg-cor-secundaria cor-primaria">
-                    <i class="bi bi-file-earmark-pdf "></i>
-                    <span>Emitir Relatório</span>
                 </a>
             </div>
 
@@ -559,7 +575,11 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-outline-dark cor-secundaria btn-entrar">Atualizar</button>
+                                <a href="" id="linkRelatorio" target="_blank" class="btn-tabela bg-cor-secundaria cor-primaria">
+                                    <i class="bi bi-file-earmark-pdf "></i>
+                                    <span>Emitir Relatório</span>
+                                </a>
+                                <button type="submit" class="btn-tabela bg-destaque cor-primaria">Atualizar</button>
                             </div>
                         </div>
                     </form>

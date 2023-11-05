@@ -1,0 +1,10 @@
+{
+    "poppins": {
+        "100": "C:\\xampp\\htdocs\\atividade_2bim\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_100_9516b5e61c50e1848d59fd3ff2402f66",
+        "300": "C:\\xampp\\htdocs\\atividade_2bim\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_300_4a08cccbc2911e3077321a0298f4e093",
+        "normal": "C:\\xampp\\htdocs\\atividade_2bim\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_normal_442dffd12abdf0df26c14405d3f49bfa",
+        "500": "C:\\xampp\\htdocs\\atividade_2bim\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_500_6a6f5e017da7e062546fd806ab3b249c",
+        "bold": "C:\\xampp\\htdocs\\atividade_2bim\\dompdf\\vendor\\dompdf\\dompdf\/lib\/fonts\/poppins_bold_2d1c4b360c3ac297e98fc2cfd808a2cc",
+        "900": "poppins_900_b9e01d75bf95631c5ecf3bcf2a96e6b3"
+    }
+}

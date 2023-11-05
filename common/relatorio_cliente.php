@@ -4,12 +4,27 @@
     }
 
     if(!isset($_SESSION['id_cliente'])){            
-        header("Location: login.php");
+        header("Location: ../views/login.php");
     }
 
-    if(isset($_SESSION['registros'])){            
-        $registros = $_SESSION['registros'];
+    if(isset($_SESSION['relatorio_cliente'])){
+        $registros = $_SESSION['relatorio_cliente'];
         unset($_SESSION['registros']);
+    }
+    else{
+        $_SESSION['erro_select_cli'] = "Não foi possível emitir o relatório!";
+        header("Location: ../views/clientes.php");
+    }
+
+    date_default_timezone_set('America/Sao_Paulo');
+
+    $estados = array("AC" => "Acre", "AL" => "Alagoas", "AP" => "Amapá", "AM" => "Amazonas", "BA" => "Bahia", "CE" => "Ceará", "DF" => "Distrito Federal", "ES" => "Espírito Santo", "GO" => "Goiás", "MA" => "Maranhão", "MT" => "Mato Grosso", "MS" => "Mato Grosso do Sul", "MG" => "Minas Gerais", "PA" => "Pará", "PB" => "Paraíba", "PR" => "Paraná", "PE" => "Pernambuco", "PI" => "Piauí", "RJ" => "Rio de Janeiro", "RN" => "Rio Grande do Norte", "RS" => "Rio Grande do Sul", "RO" => "Rondônia", "RR" => "Roraima", "SC" => "Santa Catarina", "SP" => "São Paulo", "SE" => "Sergipe", "TO" => "Tocantins");
+
+    $estado_cli;
+    foreach ($estados as $sigla => $estado) {
+        if($registros[0]['estado'] == $sigla){
+            $estado_cli = $estado;
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -45,46 +60,46 @@
             <legend class="legenda-m40 texto-vermelho">Dados Pessoais</legend>
             <div class="linha-cliente">
                 <label for="ID" class="sessao-label texto-preto">ID:</label>
-                <span class="sessao-span texto-preto">01</span>
+                <span class="sessao-span texto-preto"><?php echo($registros[0]['id']) ?></span>
             </div>
             <div class="linha-cliente">
                 <label for="Nome" class="sessao-label texto-preto">Nome:</label>
-                <span class="sessao-span texto-preto">João Carlos</span>
+                <span class="sessao-span texto-preto"><?php echo($registros[0]['nome']) ?></span>
             </div>
             <div class="linha-cliente">
                 <label for="rg" class="sessao-label texto-preto">RG:</label>
-                <span class="sessao-span texto-preto">123548863</span>
+                <span class="sessao-span texto-preto"><?php echo($registros[0]['rg']) ?></span>
             </div>
             <div class="linha-cliente">
                 <label for="cpf_cnpj" class="sessao-label texto-preto">CPF/CNPJ:</label>
-                <span class="sessao-span texto-preto">65498564526</span>
+                <span class="sessao-span texto-preto"><?php echo($registros[0]['cpf_cnpj']) ?></span>
             </div>
             <div class="linha-cliente">
                 <label for="data_nasc" class="sessao-label texto-preto">Data de Nascimento:</label>
-                <span class="sessao-span texto-preto">14/04/1993</span>
+                <span class="sessao-span texto-preto"><?php echo($registros[0]['data_nasc']) ?></span>
             </div>
         </fieldset>
         <fieldset class="sessao-cliente">
             <legend class="legenda-m40 texto-vermelho">Endereço</legend>
             <div class="linha-cliente">
                 <label for="logradouro" class="sessao-label texto-preto">Logradouro:</label>
-                <span class="sessao-span texto-preto">Avenida 5 de Novembro</span>
+                <span class="sessao-span texto-preto"><?php echo($registros[0]['endereco']) ?></span>
             </div>
             <div class="linha-cliente">
                 <label for="numero" class="sessao-label texto-preto">Número:</label>
-                <span class="sessao-span texto-preto">1001</span>
+                <span class="sessao-span texto-preto"><?php echo($registros[0]['numero']) ?></span>
             </div>
             <div class="linha-cliente">
                 <label for="cidade" class="sessao-label texto-preto">Cidade:</label>
-                <span class="sessao-span texto-preto">Itapetininga</span>
+                <span class="sessao-span texto-preto"><?php echo($registros[0]['cidade']) ?></span>
             </div>
             <div class="linha-cliente">
                 <label for="bairro" class="sessao-label texto-preto">Bairro:</label>
-                <span class="sessao-span texto-preto">Centro</span>
+                <span class="sessao-span texto-preto"><?php echo($registros[0]['bairro']) ?></span>
             </div>
             <div class="linha-cliente">
                 <label for="estado" class="sessao-label texto-preto">Estado:</label>
-                <span class="sessao-span texto-preto">São Paulo</span>
+                <span class="sessao-span texto-preto"><?php echo($estado_cli) ?></span>
             </div>
         </fieldset>
         </fieldset>
@@ -92,22 +107,22 @@
             <legend class="legenda-m40 texto-vermelho">Dados para Contato</legend>
             <div class="linha-cliente">
                 <label for="email" class="sessao-label texto-preto">E-mail:</label>
-                <span class="sessao-span texto-preto">joao@email.com</span>
+                <span class="sessao-span texto-preto"><?php echo($registros[0]['email']) ?></span>
             </div>
             <div class="linha-cliente">
                 <label for="telefone" class="sessao-label texto-preto">Telefone Fixo:</label>
-                <span class="sessao-span texto-preto">32759999</span>
+                <span class="sessao-span texto-preto"><?php echo($registros[0]['telefone']) ?></span>
             </div>
             <div class="linha-cliente">
                 <label for="celular" class="sessao-label texto-preto">Telefone Celular:</label>
-                <span class="sessao-span texto-preto">997894856</span>
+                <span class="sessao-span texto-preto"><?php echo($registros[0]['celular']) ?></span>
             </div>
         </fieldset>
     </main>
     <footer class="footer">
         <hr>
         <div class="data-hora">
-            <span>Gerado por João Carlos, em 03/11/2023 às 06:25</span>
+            <span>Gerado por <?php echo($_SESSION['nome'])?>, em <?php echo(date('d/m/Y'))?> às <?php echo((date('H:i:s'))) ?></span>
         </div>
     </footer>    
 </body>

@@ -13,6 +13,7 @@
     $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
     $cidade = filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_STRING);
     $cpf_cnpj = filter_input(INPUT_POST, 'cpf_cnpj', FILTER_SANITIZE_STRING);
+    $relatorio = filter_input(INPUT_GET, 'relatorio', FILTER_SANITIZE_STRING);
 
     
     if(isset($_GET['id'])){
@@ -47,7 +48,14 @@
             $registros[] = $reg;
         }
         $_SESSION['registros'] = $registros;
-        header("Location: ../views/clientes.php");
+        $_SESSION['relatorio_cliente'] = $registros;
+        if($relatorio == true){
+            header("Location: ../common/relatorio_cliente.php");
+        }
+        else{
+            header("Location: ../views/clientes.php");
+        }
+        
     }else{
         $_SESSION['erro_select_cli'] = "Não foram localizados dados para o id informado!";
         header("Location: ../views/clientes.php");

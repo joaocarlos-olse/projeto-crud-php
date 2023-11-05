@@ -11,6 +11,9 @@ function excluirCliId(id){
 
 // Preenche os inputs do modal de alteração do cadastro
 function alterarCliId(id){
+    const a = document.querySelector("#linkRelatorio");
+    a.href = "../functions/select_cliente.php?id="+id+"&relatorio=true";
+
     const id_cli = document.querySelector("#id_cli");
     id_cli.value = id;
 
