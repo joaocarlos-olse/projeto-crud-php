@@ -48,7 +48,7 @@
             
             @page {
                 size: A4;
-                margin: 1vh 1vw;
+                margin: 4% 2% 2% 2%;
             }
             
             .texto-branco{
@@ -88,16 +88,15 @@
             }
             
             .logo{
-                display: inline-block;
-                align-items: 100%;
-                text-align: center;
+                display: block;
+                vertical-align: middle;
+                width: 100%;
             }
-            
+
             .logo-clientes img{
                 display: inline-block;
-                vertical-align: middle;
-                height: 15%;
-                width: 15%;
+                height: 60pt;
+                width: auto;
                 margin-right: 1%;
             }
             
@@ -107,11 +106,11 @@
                 font-size: 28pt;
                 font-weight: bold;
                 line-height: 120%;
-                text-align: start;
+                text-align: left;
             }
             
             .titulo-clientes{
-                display: inline-block;
+                display: block;
                 margin: 5% 0% 5% 0%;
             }
             
@@ -121,6 +120,14 @@
                 line-height: 50%;
                 margin: 0px;
             }
+
+            .pg-sem-titulo{
+                margin-bottom: 6%;
+            }
+
+            .quebra-pag{
+                page-break-before: always;
+            } 
             
             /* CONTEUDO PRINCIPAL */
             .main{
@@ -194,7 +201,7 @@
             
             .data-hora span{
                 font-size: 12pt;
-            }        
+            }       
         </style>
         <title>RELATÓRIO</title>
     </head>
@@ -202,7 +209,7 @@
         <!-- BARRA DE NAVEGAÇÃO -->
         <header class="header">
             <div class="logo logo-clientes">
-                <img src="logo.jpg" alt="Home">
+                <img src="../images/logo.png" alt="">
                 <div class="logo-clientes-span">
                     <span class="texto-vermelho">Mercearia<br>5ºCiclo</span>
                 </div>
@@ -226,15 +233,12 @@
                                     <span>Gerado por '.$_SESSION['nome'].', em '.date('d/m/Y').' às '.date('H:i:s').'</span>
                                 </div>
                             </div>
-                            <div class="header">
-                                <div class="logo logo-clientes">
-                                    <img src="../images/logo.png" alt="Home">
+                            <div class="header quebra-pag">
+                                <div class="logo logo-clientes pg-sem-titulo">
+                                    <img src="../images/logo.png" alt="">
                                     <div class="logo-clientes-span">
                                         <span class="texto-vermelho">Mercearia<br>5ºCiclo</span>
                                     </div>
-                                </div>
-                                <div class="titulo-clientes">
-                                    <h1 class="texto-vermelho">RELATÓRIO - CADASTRO DE CLIENTES</h1>
                                 </div>
                             </div>';
                     }

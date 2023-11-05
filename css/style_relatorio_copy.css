@@ -6,7 +6,7 @@ body{
 
 @page {
     size: A4;
-    margin: 1vh 1vw;
+    margin: 4% 2% 2% 2%;
 }
 
 .texto-branco{
@@ -15,7 +15,6 @@ body{
 
 .texto-preto{
     color: #040403;
-    
 }
 
 .texto-azul{
@@ -26,18 +25,6 @@ body{
     color: #780000;
 }
 
-.col-10{
-    width: 10%;    
-}
-
-.col-20{
-    width: 20%;    
-}
-
-.col-30{
-    width: 30%;    
-}
-
 .col-40{
     display: inline;
     margin: 0%;
@@ -46,45 +33,28 @@ body{
 
 .col-50{
     display: inline;
+    margin: 0%;
     width: 50%;    
-}
-
-.col-60{
-    display: inline;
-    width: 60%;    
-}
-
-.col-70{
-    width: 70%;    
-}
-
-.col-80{
-    width: 80%;    
-}
-
-.col-90{
-    width: 90%;    
 }
 
 /* CABEÇALHO */
 .header{
     display: block;
-    margin: 1% 2% 5% 2%;
+    margin: 0% 2% 2% 2%;
     width: 96%;
     text-align: center;
 }
 
 .logo{
-    display: inline-block;
-    align-items: 100%;
-    text-align: center;
+    display: block;
+    vertical-align: middle;
+    width: 100%;
 }
 
 .logo-clientes img{
     display: inline-block;
-    vertical-align: middle;
-    height: 15%;
-    width: 15%;
+    height: 60pt;
+    width: auto;
     margin-right: 1%;
 }
 
@@ -94,12 +64,12 @@ body{
     font-size: 28pt;
     font-weight: bold;
     line-height: 120%;
-    text-align: start;
+    text-align: left;
 }
 
 .titulo-clientes{
-    display: inline-block;
-    margin: 25px 0px 25px 0px;
+    display: block;
+    margin: 5% 0% 5% 0%;
 }
 
 .titulo-clientes h1{
@@ -108,6 +78,14 @@ body{
     line-height: 50%;
     margin: 0px;
 }
+
+.pg-sem-titulo{
+    margin-bottom: 6%;
+}
+
+.quebra-pag{
+    page-break-before: always;
+} 
 
 /* CONTEUDO PRINCIPAL */
 .main{
@@ -118,25 +96,21 @@ body{
 
 .linha-clientes{
     display: inline-block;
-    margin: 0% 0% 1% 0%;
-}
-
-#primeira-linha-clientes{
-    margin: 1% 0% 1.5% 0%;
+    margin: 0%;
 }
 
 .legenda-m10{
     width: auto;
-    margin: 0% 2%;
+    margin: -0.5% 2% 0% 2%;
     padding: 0% 1%;
-    font-size: 18pt;
+    font-size: 14pt;
     font-weight: bold;
     text-transform: uppercase;
 }
 
 .sessao-clientes{
     margin: auto 1% 4% 1%;
-    padding: 0% 1.5%;
+    padding: 3% 2% 0% 2%;
     border: 1.5pt solid #003049;
     border-radius: 10pt;
 }
@@ -145,27 +119,29 @@ body{
     display: inline-block;
     font-size: 12pt;
     font-weight: bold;
-    margin-right: 1%;
+    line-height: 150%;
+    margin: 0% 1% 0% 0%;
 }
 
 .sessao-span{
     display: inline-block;
     font-size: 12pt;
     font-weight: normal;
+    line-height: 150%;
+    margin: 0%;
 }
 
 .sessao-hr{
     border-top: 1% solid #003049;
-    margin: 0% 0% 1% 0%;
+    margin: 0% 0% 2% 0%;
 }
 
 /* RODAPÉ */
 .footer{
-    display: block;
-    position: fixed;
+    position: absolute;
     bottom: 0%;
     width: 96%;
-    margin: 1% 2%;
+    margin: 1% auto;
 }
 
 .footer hr{
@@ -177,11 +153,10 @@ body{
 
 .data-hora{
     display: block;
+    margin-top: 1%;
     text-align: center;
-    margin: auto 1% auto 1%;
 }
 
 .data-hora span{
     font-size: 12pt;
-    font-weight: bold;
 }
