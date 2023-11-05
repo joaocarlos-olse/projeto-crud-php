@@ -3,6 +3,7 @@
     $usuario = "root";
     $senha = "";
     $nome_db = "atividade_2bim_db";
+    $caminhoProjeto = "http://localhost/atividade_2bim";
 
     // Cria a conexão
     $conexao = mysqli_connect($servidor, $usuario, $senha, $nome_db);

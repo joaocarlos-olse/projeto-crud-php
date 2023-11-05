@@ -16,6 +16,7 @@
         header("Location: ../views/clientes.php");
     }
 
+    include_once('config.php');
     date_default_timezone_set('America/Sao_Paulo');
 
     $estados = array("AC" => "Acre", "AL" => "Alagoas", "AP" => "Amapá", "AM" => "Amazonas", "BA" => "Bahia", "CE" => "Ceará", "DF" => "Distrito Federal", "ES" => "Espírito Santo", "GO" => "Goiás", "MA" => "Maranhão", "MT" => "Mato Grosso", "MS" => "Mato Grosso do Sul", "MG" => "Minas Gerais", "PA" => "Pará", "PB" => "Paraíba", "PR" => "Paraná", "PE" => "Pernambuco", "PI" => "Piauí", "RJ" => "Rio de Janeiro", "RN" => "Rio Grande do Norte", "RS" => "Rio Grande do Sul", "RO" => "Rondônia", "RR" => "Roraima", "SC" => "Santa Catarina", "SP" => "São Paulo", "SE" => "Sergipe", "TO" => "Tocantins");
@@ -27,19 +28,16 @@
         }
     }
 
-    // Carrega o Composer autoloader
-    require ('../dompdf/vendor/autoload.php');
+    // include autoloader
+    require_once '../dompdf/autoload.inc.php';
 
     use Dompdf\Dompdf;
     use Dompdf\Options;
 
-    // Crie uma nova instância do Options
-    $Options = new Options();
-    $Options->set('isHtml5ParserEnabled', true);
-
     // Crie uma nova instância do Dompdf
-    $dompdf = new Dompdf($Options);
-
+    $options = new Options();
+    $options->set('isRemoteEnabled', true);
+    $dompdf = new Dompdf($options);
 
     $html = '<!DOCTYPE html>
     <html lang="pt-BR">
@@ -201,7 +199,7 @@
         <!-- BARRA DE NAVEGAÇÃO -->
         <header class="header">
             <div class="logo logo-cliente">
-                <img src="../images/logo.png" alt="">
+                <img src="'.$caminhoProjeto.'/images/logo.png" alt="">
                 <div class="logo-cliente-span">
                     <span class="texto-vermelho">Mercearia<br>5ºCiclo</span>
                 </div>
