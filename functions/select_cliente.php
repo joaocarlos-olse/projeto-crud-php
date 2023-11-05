@@ -50,7 +50,7 @@
         $_SESSION['registros'] = $registros;
         $_SESSION['relatorio_cliente'] = $registros;
         if($relatorio == true){
-            header("Location: ../common/relatorio_cliente.php");
+            header("Location: ../common/relatorio_cliente_render.php");
         }
         else{
             header("Location: ../views/clientes.php");

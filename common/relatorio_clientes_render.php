@@ -32,8 +32,7 @@
 
     // Crie uma nova instância do Dompdf
     $dompdf = new Dompdf($Options);
-?>
-<?php
+    
     $html = '<!DOCTYPE html>
     <html lang="pt-BR">
     <head>

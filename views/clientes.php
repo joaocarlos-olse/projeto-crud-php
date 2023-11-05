@@ -169,18 +169,6 @@
                                 <i class="bi bi-plus-lg "></i>
                                 <span>Novo Cadastro</span>
                             </a>
-                            <a href="../common/relatorio_clientes.php" target="_blank" class="btn-tabela bg-cor-secundaria cor-primaria">
-                                <i class="bi bi-file-earmark-pdf "></i>
-                                <span>Emitir Relatório</span>
-                            </a>
-                        ');
-                    }
-                    else{
-                        echo('
-                            <a href="../common/relatorio_cliente.php" target="_blank" class="btn-tabela bg-cor-secundaria cor-primaria">
-                                <i class="bi bi-file-earmark-pdf "></i>
-                                <span>Emitir Relatório</span>
-                            </a>                        
                         ');
                     }
                 ?>
@@ -188,6 +176,24 @@
                     <i class="bi bi-key "></i>
                     <span>Alterar Senha</span>
                 </a>
+                <?php
+                    if($_SESSION['admin'] == 0){
+                        echo('
+                            <a href="../common/relatorio_cliente_render.php" target="_blank" class="btn-tabela bg-cor-secundaria cor-primaria">
+                                <i class="bi bi-file-earmark-pdf "></i>
+                                <span>Emitir Relatório</span>
+                            </a>                        
+                        ');
+                    }
+                    else{
+                        echo('
+                            <a href="../common/relatorio_clientes_render.php" target="_blank" class="btn-tabela bg-cor-secundaria cor-primaria">
+                                <i class="bi bi-file-earmark-pdf "></i>
+                                <span>Emitir Relatório</span>
+                            </a>
+                        ');
+                    }
+                ?>
             </div>
 
             <?php
