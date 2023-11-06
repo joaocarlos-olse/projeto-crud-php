@@ -52,10 +52,10 @@
                     <a class="nav-link cor-primaria" href="clientes.php">Clientes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link cor-primaria" href="#">Pedidos</a>
+                    <a class="nav-link cor-primaria" href="pedidos.php">Pedidos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link cor-primaria" href="#">Produtos</a>
+                    <a class="nav-link cor-primaria" href="produtos.php">Produtos</a>
                 </li>
                 </ul>
                 <?php
