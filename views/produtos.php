@@ -60,7 +60,7 @@
                     <a class="nav-link cor-primaria" href="clientes.php">Clientes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link cor-primaria" href="pedidos.php">Pedidos</a>
+                    <a class="nav-link cor-primaria" href="pedidos">Pedidos</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link cor-primaria" href="produtos.php">Produtos</a>
@@ -192,9 +192,9 @@
                             <tr>
                                 <th scope="row">'.$prod['id'].'</th>
                                 <td id="nome'.$prod['id'].'">'.$prod['nome'].'</td>
-                                <td id="email'.$prod['id'].'">'.$prod['qtde_estoque'].'</td>
-                                <td id="rg'.$prod['id'].'">'.$prod['valor_unitario'].'</td>
-                                <td id="cpf_cnpj'.$prod['id'].'">'.$prod['unidade_medida'].'</td>
+                                <td id="qtde_estoque'.$prod['id'].'">'.$prod['qtde_estoque'].'</td>
+                                <td id="valor_unitario'.$prod['id'].'">'.$prod['valor_unitario'].'</td>
+                                <td id="unidade_medida'.$prod['id'].'">'.$prod['unidade_medida'].'</td>
                         ');
                         if($_SESSION['admin'] == 1){
                             echo('
@@ -300,11 +300,11 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
                                         <label>Qtd. Estoque</label>
-                                        <input name="qtde_estoque" type="number" class="form-control">
+                                        <input name="qtde_estoque" type="number" min="0" class="form-control">
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>Valor Unitário R$</label>
-                                        <input name="valor_unitario" type="number" class="form-control">
+                                        <input name="valor_unitario" min="0.01" step="0.01" type="number" class="form-control">
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>Uni. de Medida</label>

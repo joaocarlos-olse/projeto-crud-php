@@ -70,6 +70,36 @@ function alterarCliId(id){
     $('#ModalAtualizar').modal('show');
 }
 
+// Preenche os inputs do modal de alteração do cadastro de produto
+function alterarProdId(id){
+    const a = document.querySelector("#linkRelatorio");
+    a.href = "../functions/select_produto.php?id="+id+"&relatorio=true";
+
+    const id_prod = document.querySelector("#id_prod");
+    id_prod.value = id;
+
+    const nome_prod = document.querySelector("#nome_prod");
+    nome_prod.value = $("td#nome"+id).text();
+
+    const qtde_estoque_prod = document.querySelector("#qtde_estoque_prod");
+    qtde_estoque_prod.value = $("td#qtde_estoque"+id).text();
+
+    const valor_unitario_prod = document.querySelector("#valor_unitario_prod");
+    valor_unitario_prod.value = $("td#valor_unitario"+id).text();
+
+    const unidade_medida_prod = document.querySelector("#unidade_medida_prod");
+    unidade_medida_prod.value = $("td#unidade_medida"+id).text();
+
+    $('#ModalAtualizar').modal('show');
+}
+
+// Coloca como parametro GET o id do produto que vai ser excluido
+function excluirProdId(id){
+    const a = document.querySelector("#linkExcluir");
+    a.href = "../functions/excluir_produto.php?id="+id
+    $('#ModalConfirmarExcluir').modal('show');
+}
+
 // Preenche o select com o estado do cliente comum (não admin)
 document.addEventListener("DOMContentLoaded", function (){
     var label_estado_cli = document.getElementById("label_estado_cliente");
