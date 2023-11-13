@@ -13,8 +13,8 @@ $unidade_medida = $_POST['unidade_medida'];
 
 function ErrorMessage(string $message)
 {
-    $_SESSION['erro_cadastro'] = $message;
-    header("Location: ../views/login.php");
+    $_SESSION['erro_atualizacao'] = $message;
+    header("Location: ../views/produtos.php");
 }
 
 if (!$nome) {
@@ -40,11 +40,11 @@ if (mysqli_num_rows($result_query_campos_unicos) > 0) {
 }
 
 try {
-    $sql = "INSERT INTO produto (nome, qtde_estoque, valor_unitario, unidade_medida) VALUES ('$nome', '$qtde_estoque', '$valor_unitario', '$unidade_medida')";
+    $sql = "UPDATE produto SET nome = '$nome', qtde_estoque = '$qtde_estoque', valor_unitario = '$valor_unitario', unidade_medida = '$unidade_medida' WHERE id='$id'";
 
     $query = mysqli_query($conexao, $sql);
 
-    $_SESSION['sucesso_cadastro'] = "<strong>FEITO:</strong> Cadastro realizado!";
+    $_SESSION['sucesso_cadastro'] = "<strong>FEITO:</strong> Cadastro atualizado!";
 
     if (isset($_SESSION["id_cliente"])) {
         header("Location: select_produto.php");

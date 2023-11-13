@@ -59,7 +59,7 @@
     mysqli_begin_transaction($conexao) or die(mysqli_connect_error());
 
     try{
-        $sql = "UPDATE clientes SET nome = '$nome', endereco = '$endereco', numero = '$numero', bairro = '$bairro', cidade = '$cidade', estado = '$estado', email = '$email', cpf_cnpj = '$cpf_cnpj', rg = '$rg', telefone = '$telefone', celular = '$celular', data_nasc = '$data_nasc' WHERE id='$id'";
+        $sql = "UPDATE clientes SET nome = '$nome', endereco = '$endereco', numero = '$numero', bairro = '$bairro', cidade = '$cidade', estado = '$estado', email = '$email', cpf_cnpj = '$cpf_cnpj', rg = '$rg', telefone = '$telefone', celular = '$celular', data_nasc = '$data_nasc' WHERE id = '$id'";
 
         $query = mysqli_query($conexao, $sql);
 

@@ -35,7 +35,7 @@
     <!-- MEU CSS -->
     <link rel="stylesheet" href="../css/style.css">
     <!-- MEU JS -->
-    <script src="../js/controle_modal.js"></script>
+    <script src="../js/controle_modal_produto.js"></script>
     <!-- MEU FAVICON -->
     <link rel="shortcut icon" href="../images/icons/logo.ico" type="image/x-icon">
     <title>Cadastro de Produtos</title>
