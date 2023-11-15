@@ -158,13 +158,13 @@
                                 <i class="bi bi-plus-lg "></i>
                                 <span>Novo Cadastro</span>
                             </a>
+                            <a href="../common/relatorio_produtos_render.php" target="_blank" class="btn-tabela bg-cor-secundaria cor-primaria">
+                                <i class="bi bi-file-earmark-pdf "></i>
+                                <span>Emitir Relatório</span>
+                            </a>
                         ');
                     }
                 ?>
-                <a href="../common/relatorio_clientes_render.php" target="_blank" class="btn-tabela bg-cor-secundaria cor-primaria">
-                    <i class="bi bi-file-earmark-pdf "></i>
-                    <span>Emitir Relatório</span>
-                </a>
             </div>
             <div class="table-responsive">
                             <table class="table table-hover mb-3">
@@ -346,11 +346,11 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
                                         <label>Qtd. Estoque</label>
-                                        <input name="qtde_estoque" id="qtde_estoque_prod" type="number" class="form-control">
+                                        <input name="qtde_estoque" id="qtde_estoque_prod" min="0" type="number" class="form-control">
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>Valor Unitário R$</label>
-                                        <input name="valor_unitario" id="valor_unitario_prod" type="number" class="form-control">
+                                        <input name="valor_unitario" id="valor_unitario_prod" min="0.01" step="0.01" type="number" class="form-control">
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label>Uni. de Medida</label>

@@ -9,7 +9,7 @@
 
     if(isset($_SESSION['relatorio_cliente'])){
         $registros = $_SESSION['relatorio_cliente'];
-        unset($_SESSION['registros']);
+        unset($_SESSION['relatorio_cliente']);
     }
     else{
         $_SESSION['erro_select_cli'] = "Não foi possível emitir o relatório!";

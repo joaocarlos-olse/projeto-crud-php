@@ -14,7 +14,7 @@ $unidade_medida = $_POST['unidade_medida'];
 function ErrorMessage(string $message)
 {
     $_SESSION['erro_cadastro'] = $message;
-    header("Location: ../views/login.php");
+    header("Location: select_produto.php");
 }
 
 if (!$nome) {
@@ -54,7 +54,7 @@ try {
     mysqli_rollback($conexao);
 
     $_SESSION['erro_cadastro'] = "<strong>ERRO:</strong><br> Cadastro não foi realizado!";
-    header("Location: ../views/produtos.php");
+    header("Location: select_produto.php");
 } finally {
     mysqli_close($conexao);
 }
