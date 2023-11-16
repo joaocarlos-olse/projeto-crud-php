@@ -42,7 +42,7 @@
     <!-- MEU CSS -->
     <link rel="stylesheet" href="../css/style.css">
     <!-- MEU JS -->
-    <script src="../js/controle_modal_cliente.js"></script>
+    <script src="../js/script_cliente.js"></script>
     <!-- MEU FAVICON -->
     <link rel="shortcut icon" href="../images/icons/logo.ico" type="image/x-icon">
     <title>Cadastro de Clientes</title>
@@ -67,7 +67,7 @@
                     <a class="nav-link cor-primaria" href="clientes.php">Clientes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link cor-primaria" href="pedidos">Pedidos</a>
+                    <a class="nav-link cor-primaria" href="pedidos.php">Pedidos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link cor-primaria" href="produtos.php">Produtos</a>
@@ -223,31 +223,40 @@
                                 </thead>
                                 <tbody>
                     ');
-                    foreach($registros as $reg){
+                    if(count($registros) > 0){
+                        foreach($registros as $reg){
+                            echo('                             
+                                <tr>
+                                    <th scope="row">'.$reg['id'].'</th>
+                                    <td id="nome'.$reg['id'].'">'.$reg['nome'].'</td>
+                                    <td id="email'.$reg['id'].'">'.$reg['email'].'</td>
+                                    <td id="rg'.$reg['id'].'">'.$reg['rg'].'</td>
+                                    <td id="cpf_cnpj'.$reg['id'].'">'.$reg['cpf_cnpj'].'</td>
+                                    <td id="data_nasc'.$reg['id'].'">'.$reg['data_nasc'].'</td>
+                                    <td id="endereco'.$reg['id'].'">'.$reg['endereco'].'</td>
+                                    <td id="numero'.$reg['id'].'">'.$reg['numero'].'</td>
+                                    <td id="bairro'.$reg['id'].'">'.$reg['bairro'].'</td>
+                                    <td id="cidade'.$reg['id'].'">'.$reg['cidade'].'</td>
+                                    <td id="estado'.$reg['id'].'">'.$reg['estado'].'</td>
+                                    <td id="telefone'.$reg['id'].'">'.$reg['telefone'].'</td>
+                                    <td id="celular'.$reg['id'].'">'.$reg['celular'].'</td>
+                                    <td id="admin'.$reg['id'].'">'.$reg['admin'].'</td>
+                                    <td class="td-icone-acoes">
+                                        <button type="button" class="bi bi-pencil-fill icone-acoes cor-secundaria" onclick="alterarCliId('.$reg['id'].');"></button>
+                                    </td>
+                                    <td class="td-icone-acoes">
+                                        <button type="button" class="bi bi-trash-fill icone-acoes cor-destaque" onclick="excluirCliId('.$reg['id'].');"></button>
+                                    </td>
+                                </tr>                                           
+                            ');                                    
+                        }
+                    }
+                    else{
                         echo('                             
                             <tr>
-                                <th scope="row">'.$reg['id'].'</th>
-                                <td id="nome'.$reg['id'].'">'.$reg['nome'].'</td>
-                                <td id="email'.$reg['id'].'">'.$reg['email'].'</td>
-                                <td id="rg'.$reg['id'].'">'.$reg['rg'].'</td>
-                                <td id="cpf_cnpj'.$reg['id'].'">'.$reg['cpf_cnpj'].'</td>
-                                <td id="data_nasc'.$reg['id'].'">'.$reg['data_nasc'].'</td>
-                                <td id="endereco'.$reg['id'].'">'.$reg['endereco'].'</td>
-                                <td id="numero'.$reg['id'].'">'.$reg['numero'].'</td>
-                                <td id="bairro'.$reg['id'].'">'.$reg['bairro'].'</td>
-                                <td id="cidade'.$reg['id'].'">'.$reg['cidade'].'</td>
-                                <td id="estado'.$reg['id'].'">'.$reg['estado'].'</td>
-                                <td id="telefone'.$reg['id'].'">'.$reg['telefone'].'</td>
-                                <td id="celular'.$reg['id'].'">'.$reg['celular'].'</td>
-                                <td id="admin'.$reg['id'].'">'.$reg['admin'].'</td>
-                                <td class="td-icone-acoes">
-                                    <button type="button" class="bi bi-pencil-fill icone-acoes cor-secundaria" onclick="alterarCliId('.$reg['id'].');"></button>
-                                </td>
-                                <td class="td-icone-acoes">
-                                    <button type="button" class="bi bi-trash-fill icone-acoes cor-destaque" onclick="excluirCliId('.$reg['id'].');"></button>
-                                </td>
+                                <th scope="row">Nenhum registro encontrado!</th>
                             </tr>                                           
-                        ');                                    
+                        ');                         
                     }
                     echo('
                             </tbody>

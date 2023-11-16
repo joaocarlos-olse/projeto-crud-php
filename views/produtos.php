@@ -35,7 +35,7 @@
     <!-- MEU CSS -->
     <link rel="stylesheet" href="../css/style.css">
     <!-- MEU JS -->
-    <script src="../js/controle_modal_produto.js"></script>
+    <script src="../js/script_produto.js"></script>
     <!-- MEU FAVICON -->
     <link rel="shortcut icon" href="../images/icons/logo.ico" type="image/x-icon">
     <title>Cadastro de Produtos</title>
@@ -60,7 +60,7 @@
                     <a class="nav-link cor-primaria" href="clientes.php">Clientes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link cor-primaria" href="pedidos">Pedidos</a>
+                    <a class="nav-link cor-primaria" href="pedidos.php">Pedidos</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link cor-primaria" href="produtos.php">Produtos</a>
@@ -167,53 +167,62 @@
                 ?>
             </div>
             <div class="table-responsive">
-                            <table class="table table-hover mb-3">
-                                <thead class="bg-destaque cor-primaria">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Descrição</th>
-                                        <th scope="col">Qtd. Estoque</th>
-                                        <th scope="col">Valor (R$)</th>
-                                        <th scope="col">Uni. Medida</th>
-                                        <?php
-                                             if($_SESSION['admin'] == 1){
-                                                echo('
-                                                    <th scope="col">Editar</th>
-                                                    <th scope="col">Excuir</th>                                                
-                                                ');
-                                             }
-                                        ?>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                <table class="table table-hover mb-3">
+                    <thead class="bg-destaque cor-primaria">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Qtd. Estoque</th>
+                            <th scope="col">Valor (R$)</th>
+                            <th scope="col">Uni. Medida</th>
+                            <?php
+                                if($_SESSION['admin'] == 1){
+                                echo('
+                                    <th scope="col">Editar</th>
+                                    <th scope="col">Excuir</th>                                                
+                                ');
+                                }
+                            ?>
+                        </tr>
+                    </thead>
+                    <tbody>
                     <?php
-                    foreach($produtos as $prod){
+                    if(count($produtos) > 0){
+                        foreach($produtos as $prod){
+                            echo('                             
+                                <tr>
+                                    <th scope="row">'.$prod['id'].'</th>
+                                    <td id="nome'.$prod['id'].'">'.$prod['nome'].'</td>
+                                    <td id="qtde_estoque'.$prod['id'].'">'.$prod['qtde_estoque'].'</td>
+                                    <td id="valor_unitario'.$prod['id'].'">'.$prod['valor_unitario'].'</td>
+                                    <td id="unidade_medida'.$prod['id'].'">'.$prod['unidade_medida'].'</td>
+                            ');
+                            if($_SESSION['admin'] == 1){
+                                echo('
+                                    <td class="td-icone-acoes">
+                                        <button type="button" class="bi bi-pencil-fill icone-acoes cor-secundaria" onclick="alterarProdId('.$prod['id'].');"></button>
+                                    </td>
+                            
+                                    <td class="td-icone-acoes">
+                                        <button type="button" class="bi bi-trash-fill icone-acoes cor-destaque" onclick="excluirProdId('.$prod['id'].');"></button>
+                                    </td>
+                                </tr>
+                                ');
+                            }
+    
+                        }
+                    }
+                    else{
                         echo('                             
                             <tr>
-                                <th scope="row">'.$prod['id'].'</th>
-                                <td id="nome'.$prod['id'].'">'.$prod['nome'].'</td>
-                                <td id="qtde_estoque'.$prod['id'].'">'.$prod['qtde_estoque'].'</td>
-                                <td id="valor_unitario'.$prod['id'].'">'.$prod['valor_unitario'].'</td>
-                                <td id="unidade_medida'.$prod['id'].'">'.$prod['unidade_medida'].'</td>
+                                <th scope="row">Nenhum registro encontrado!</th>
+                            </tr>                                           
                         ');
-                        if($_SESSION['admin'] == 1){
-                            echo('
-                                <td class="td-icone-acoes">
-                                    <button type="button" class="bi bi-pencil-fill icone-acoes cor-secundaria" onclick="alterarProdId('.$prod['id'].');"></button>
-                                </td>
-                        
-                                <td class="td-icone-acoes">
-                                    <button type="button" class="bi bi-trash-fill icone-acoes cor-destaque" onclick="excluirProdId('.$prod['id'].');"></button>
-                                </td>
-                            </tr>
-                            ');
-                        }
-
                     }
                     ?>
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     
