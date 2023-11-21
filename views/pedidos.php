@@ -293,7 +293,8 @@
     <!-- Modal Formulário de Cadastro -->
     <div class="modal fade" id="ModalCadastro" tabindex="-1" role="dialog" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form name="formCadastro" method="post" action="../functions/cadastrar_pedido.php">
+            <form name="formCadastro" method="post" action="../functions/cadastrar_itens_pedido.php">
+                <input type="hidden" name="id" id="id_cliente">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="TituloModalLongoExemplo">Novo Pedido</h5>
@@ -317,7 +318,7 @@
                                         echo('</select>');
                                     }
                                     else{
-                                        echo('<input name="nome" type="text" class="form-control" value="'.$_SESSION['nome'].'" disabled>');
+                                        echo('<input name="nome_cli" type="text" class="form-control" value="'.$_SESSION['nome'].'" disabled>');
                                     }
                                 ?>                             
                             </div>
