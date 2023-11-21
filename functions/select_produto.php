@@ -11,6 +11,7 @@
 
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
     $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
+    $pedido = filter_input(INPUT_GET, 'prod_pedido', FILTER_SANITIZE_STRING);
 
     
     if(isset($_GET['id'])){
@@ -34,8 +35,12 @@
         }
         $_SESSION['produtos'] = $produtos;
         $_SESSION['relatorio_produtos'] = $produtos;
+        $_SESSION['pedido_produtos'] = $produtos;
         if($relatorio == true){
             header("Location: ../common/relatorio_produtos_render.php");
+        }
+        elseif($pedido == true){
+            header("Location: ../views/pedidos.php");
         }
         else{
             header("Location: ../views/produtos.php");

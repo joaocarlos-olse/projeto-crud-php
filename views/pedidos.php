@@ -7,6 +7,22 @@
         header("Location: login.php");
     }
 
+    // Select cliente(s)
+    if(!isset($_SESSION['pedido_cliente'])){
+        if($_SESSION['admin'] == 1){
+            header("Location: ../functions/select_cliente.php?cli_pedido=true");            
+        }
+        else{
+            header('Location: ../functions/select_cliente.php?cli_pedido=true&id='.$_SESSION['id_cliente'].'');
+        }        
+    }
+
+    // Select produtos
+    if(!isset($_SESSION['pedido_produtos'])){
+        header("Location: ../functions/select_produto.php?prod_pedido=true");
+    }
+
+    // Select pedidos
     if(!isset($_SESSION['pedidos']) && !isset($_SESSION['erro_select_pedido'])){     
         if($_SESSION['admin'] == 1){
             header("Location: ../functions/select_pedido.php");            
@@ -16,11 +32,25 @@
         }        
     }
 
+    // Definição de variáveis
     $pedidos = array();
     if(isset($_SESSION['pedidos'])){            
         $pedidos = $_SESSION['pedidos'];
-        unset($_SESSION['pedidos']);
     }
+    if(isset($_SESSION['pedido_produtos'])){            
+        $produtos = $_SESSION['pedido_produtos'];
+    }
+    if(isset($_SESSION['pedido_cliente'])){            
+        $clientes = $_SESSION['pedido_cliente'];
+    }
+    if(isset($_SESSION['pedidos']) && isset($_SESSION['pedido_produtos']) && isset($_SESSION['pedido_cliente'])){            
+        unset($_SESSION['pedidos']);
+        unset($_SESSION['pedido_cliente']);
+        unset($_SESSION['pedido_produtos']);
+    }
+
+    date_default_timezone_set('America/Sao_Paulo'); 
+
 ?>
 
 <!DOCTYPE html>
@@ -279,23 +309,23 @@
                                 <?php
                                     if($_SESSION['admin'] == 1){
                                         echo('
-                                            <select name="estado" id="estado_cli" class="form-control">
+                                            <select name="nome_cli" id="select_nome_cli" class="form-control" onchange="setDadosCli()">
                                                 <option selected disabled>Selecione</option>');
                                         foreach ($clientes as $cli) {
-                                            echo('<option id="nome'.$cli['id'].'" value="'.$cli['id'].'">'.$cli['nome'].'</option>');
+                                            echo('<option value="'.$cli['id'].'" name="'.$cli['cpf_cnpj'].'&'.$cli['email'].'&'.$cli['celular'].'">'.$cli['nome'].'</option>');
                                         }
                                         echo('</select>');
                                     }
                                     else{
                                         echo('<input name="nome" type="text" class="form-control" value="'.$_SESSION['nome'].'" disabled>');
                                     }
-                                ?>                                
+                                ?>                             
                             </div>
                             <div class="form-group col-md-4">
                                 <label>CPF/CNPJ</label>
                                 <?php
                                     if($_SESSION['admin'] == 1){
-                                        echo('<input name="nome" id="cpf_cnpj'.$cli['id'].'" type="text" class="form-control" value="" disabled>');
+                                        echo('<input name="cpf_cnpj" id="cpf_cnpj" type="text" class="form-control" value="" disabled>');
                                     }
                                     else{
                                         echo('<input name="cpf_cnpj" type="text" class="form-control" value="'.$_SESSION['cpf_cnpj'].'" disabled>');
@@ -308,7 +338,7 @@
                                 <label>E-mail</label>
                                 <?php
                                     if($_SESSION['admin'] == 1){
-                                        echo('<input name="nome" id="email'.$cli['id'].'" type="text" class="form-control" value="" disabled>');
+                                        echo('<input name="email" id="email" type="text" class="form-control" value="" disabled>');
                                     }
                                     else{
                                         echo('<input name="email" type="text" class="form-control" value="'.$_SESSION['email'].'" disabled>');
@@ -319,7 +349,7 @@
                                 <label>Celular</label>
                                 <?php
                                     if($_SESSION['admin'] == 1){
-                                        echo('<input name="nome" id="celular'.$cli['id'].'" type="text" class="form-control" value="" disabled>');
+                                        echo('<input name="celular" id="celular" type="text" class="form-control" value="" disabled>');
                                     }
                                     else{
                                         echo('<input name="celular" type="text" class="form-control" value="'.$_SESSION['celular'].'" disabled>');
@@ -371,7 +401,7 @@
                                     <option selected disabled>Selecione</option>
                                     <?php
                                         foreach ($produtos as $prod) {
-                                            echo('<option id="prod'.$prod['id'].'" value="'.$prod['id'].'">'.$nome.'</option>');
+                                            echo('<option name="'.$prod['qtde_estoque'].'" value="'.$prod['id'].'">'.$prod['nome'].'</option>');
                                         }
                                         echo('</select>');
                                     ?>                                

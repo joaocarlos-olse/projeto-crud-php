@@ -14,6 +14,7 @@
     $cidade = filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_STRING);
     $cpf_cnpj = filter_input(INPUT_POST, 'cpf_cnpj', FILTER_SANITIZE_STRING);
     $relatorio = filter_input(INPUT_GET, 'relatorio', FILTER_SANITIZE_STRING);
+    $pedido = filter_input(INPUT_GET, 'cli_pedido', FILTER_SANITIZE_STRING);
 
     
     if(isset($_GET['id'])){
@@ -49,8 +50,12 @@
         }
         $_SESSION['registros'] = $registros;
         $_SESSION['relatorio_cliente'] = $registros;
+        $_SESSION['pedido_cliente'] = $registros;
         if($relatorio == true){
             header("Location: ../common/relatorio_cliente_render.php");
+        }
+        elseif($pedido == true){
+            header("Location: ../views/pedidos.php");
         }
         else{
             header("Location: ../views/clientes.php");

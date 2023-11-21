@@ -35,3 +35,21 @@ function addProduto(){
     div_qtde.appendChild(input_qtde);
     divLinhaProdutos.appendChild(div_qtde);
 }
+
+// Preenche campos dados pessoais do pedido
+function setDadosCli(){
+    var selecionado = document.getElementById("select_nome_cli");
+
+    var name_selecionado = selecionado.options[selecionado.selectedIndex].getAttribute("name");
+
+    var dados = name_selecionado.split("&");
+
+    var cpf_cnpj = document.getElementById("cpf_cnpj");
+    var email = document.getElementById("email");
+    var celular = document.getElementById("celular");
+    
+    cpf_cnpj.value = dados[0];
+    email.value = dados[1];
+    celular.value = dados[2];
+}
+
