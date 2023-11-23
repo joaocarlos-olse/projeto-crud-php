@@ -10,7 +10,7 @@
     include("../common/config.php");
 
     if(isset($_POST['id'])){
-        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $id = filter_input(INPUT_POST, 'id_cli', FILTER_SANITIZE_NUMBER_INT);
     }
     else{
         $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -20,28 +20,28 @@
 
     
     if(!empty($id) && empty($data_inicial) && empty($data_final)){
-        $sql = "SELECT * FROM pedidos WHERE id_cliente = '$id'";
+        $sql = "SELECT p.*, c.nome FROM pedidos p INNER JOIN clientes c ON c.id = p.id_cliente WHERE p.id_cliente = '$id'";
     }
     elseif(empty($id) && !empty($data_inicial) && empty($data_final)){
-        $sql = "SELECT * FROM pedidos WHERE data_pedido >= '$data_inicial'";
+        $sql = "SELECT p.*, c.nome FROM pedidos p INNER JOIN clientes c ON c.id = p.id_cliente WHERE p.data_pedido >= '$data_inicial'";
     }
     elseif(empty($id) && empty($data_inicial) && !empty($data_final)){
-        $sql = "SELECT * FROM pedidos WHERE data_pedido <= '$data_final'";
+        $sql = "SELECT p.*, c.nome FROM pedidos p INNER JOIN clientes c ON c.id = p.id_cliente WHERE p.data_pedido <= '$data_final'";
     }
     elseif(!empty($id) && !empty($data_inicial) && empty($data_final)){
-        $sql = "SELECT * FROM pedidos WHERE id_cliente = '$id' AND data_pedido >= '$data_inicial'";
+        $sql = "SELECT p.*, c.nome FROM pedidos p INNER JOIN clientes c ON c.id = p.id_cliente WHERE p.id_cliente = '$id' AND p.data_pedido >= '$data_inicial'";
     }
     elseif(!empty($id) && empty($data_inicial) && !empty($data_final)){
-        $sql = "SELECT * FROM pedidos WHERE id_cliente = '$id' AND data_pedido <= '$data_final'";
+        $sql = "SELECT p.*, c.nome FROM pedidos p INNER JOIN clientes c ON c.id = p.id_cliente WHERE p.id_cliente = '$id' AND p.data_pedido <= '$data_final'";
     }
     elseif(empty($id) && !empty($data_inicial) && !empty($data_final)){
-        $sql = "SELECT * FROM pedidos WHERE data_pedido BETWEEN $data_inicial AND $data_final";
+        $sql = "SELECT p.*, c.nome FROM pedidos p INNER JOIN clientes c ON c.id = p.id_cliente WHERE p.data_pedido BETWEEN $data_inicial AND $data_final";
     }
     elseif(!empty($id) && !empty($data_inicial) && !empty($data_final)){
-        $sql = "SELECT * FROM pedidos WHERE id_cliente = '$id' AND data_pedido BETWEEN $data_inicial AND $data_final";
+        $sql = "SELECT p.*, c.nome FROM pedidos p INNER JOIN clientes c ON c.id = p.id_cliente WHERE p.id_cliente = '$id' AND p.data_pedido BETWEEN $data_inicial AND $data_final";
     }
     else{
-        $sql = "SELECT * FROM pedidos ORDER BY data_pedido";
+        $sql = "SELECT p.*, c.nome FROM pedidos p INNER JOIN clientes c ON c.id = p.id_cliente ORDER BY data_pedido";
     }
 
     $resu = mysqli_query($conexao, $sql) or die (mysqli_connect_error());

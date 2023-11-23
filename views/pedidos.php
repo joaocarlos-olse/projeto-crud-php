@@ -192,12 +192,12 @@
                             <th scope="col">Cond. Pagamentos</th>
                             <th scope="col">Prazo de Entrega</th>
                             <?php
-                            if ($_SESSION['admin'] == 1) {
-                                echo ('
-                                    <th scope="col">Editar</th>
+                                if($_SESSION['admin'] == 1){
+                                echo('
+                                    <th scope="col">Visualizar</th>
                                     <th scope="col">Excuir</th>                                                
                                 ');
-                            }
+                                }
                             ?>
                         </tr>
                     </thead>
@@ -207,7 +207,7 @@
                             foreach ($pedidos as $ped) {
                                 echo ('                             
                                 <tr>
-                                    <th scope="row">' . $ped['id_ped'] . '</th>
+                                    <th scope="row">' . $ped['id'] . '</th>
                                     <td id="data_pedido' . $ped['id'] . '">' . $ped['data_pedido'] . '</td>
                                     <td id="id_cliente' . $ped['id'] . '">' . $ped['nome'] . '</td>
                                     <td id="observacao' . $ped['id'] . '">' . $ped['observacao'] . '</td>
@@ -217,7 +217,10 @@
                                 if ($_SESSION['admin'] == 1) {
                                     echo ('                        
                                     <td class="td-icone-acoes">
-                                        <button type="button" class="bi bi-trash-fill icone-acoes cor-destaque" onclick="excluirProdId(' . $ped['id_ped'] . ');" ></button>
+                                        <button type="button" class="bi bi-eye icone-acoes cor-destaque" onclick="excluirProdId(' . $ped['id'] . ');" ></button>
+                                    </td>
+                                    <td class="td-icone-acoes">
+                                        <button type="button" class="bi bi-trash-fill icone-acoes cor-destaque" onclick="excluirProdId(' . $ped['id'] . ');" ></button>
                                     </td>
                                 </tr>
                                 ');
@@ -294,7 +297,6 @@
     <div class="modal fade" id="ModalCadastro" tabindex="-1" role="dialog" aria-labelledby="TituloModalLongoExemplo" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form name="formCadastro" method="post" action="../functions/cadastrar_itens_pedido.php">
-                <input type="hidden" name="id" id="id_cliente">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="TituloModalLongoExemplo">Novo Pedido</h5>
@@ -310,7 +312,7 @@
                                 <?php
                                     if($_SESSION['admin'] == 1){
                                         echo('
-                                            <select name="nome_cli" id="select_nome_cli" class="form-control" onchange="setDadosCli()">
+                                            <select name="id_cli" id="select_nome_cli" class="form-control" onchange="setDadosCli()">
                                                 <option selected disabled>Selecione</option>');
                                         foreach ($clientes as $cli) {
                                             echo('<option value="'.$cli['id'].'" name="'.$cli['cpf_cnpj'].'&'.$cli['email'].'&'.$cli['celular'].'">'.$cli['nome'].'</option>');
@@ -318,7 +320,8 @@
                                         echo('</select>');
                                     }
                                     else{
-                                        echo('<input name="nome_cli" type="text" class="form-control" value="'.$_SESSION['nome'].'" disabled>');
+                                        echo('<input type="hidden" name="id_cli" value="'.$_SESSION['id_cliente'].'">
+                                            <input name="nome_cli" type="text" class="form-control" value="'.$_SESSION['nome'].'" disabled>');
                                     }
                                 ?>                             
                             </div>
@@ -387,7 +390,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Data do Pedido</label>
-                                <input name="data_pedido" type="text" class="form-control" value="<?php echo(date('d/m/Y')) ?>" disabled>
+                                <input name="data_pedido" type="date" class="form-control" value="<?php echo(date('Y-m-d')) ?>">
                             </div>
                         </div>
                         <div class="form-group">
