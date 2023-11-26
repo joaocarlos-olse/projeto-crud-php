@@ -156,15 +156,7 @@
                     </div>
                     ');
                     unset($_SESSION['sucesso_excluir']);
-                }              
-                if(isset($_SESSION['erro_select_pedido'])){            
-                    echo('
-                    <div class="alert alert-danger erro-login" role="alert">
-                        '.$_SESSION['erro_select_pedido'].'
-                    </div>
-                    ');
-                    unset($_SESSION['erro_select_pedido']);
-                }              
+                }             
             ?>
 
             <div class="gap-2 d-md-flex justify-content-end d-flex">
@@ -217,14 +209,20 @@
                                 if ($_SESSION['admin'] == 1) {
                                     echo ('                        
                                     <td class="td-icone-acoes">
-                                        <button type="button" class="bi bi-eye icone-acoes cor-destaque" onclick="excluirProdId(' . $ped['id'] . ');" ></button>
+                                        <button type="button" class="bi bi-eye icone-acoes cor-destaque"></button>
                                     </td>
                                     <td class="td-icone-acoes">
-                                        <button type="button" class="bi bi-trash-fill icone-acoes cor-destaque" onclick="excluirProdId(' . $ped['id'] . ');" ></button>
+                                        <button type="button" class="bi bi-trash-fill icone-acoes cor-destaque" onclick="excluirPedidoId(' . $ped['id'] . ');" ></button>
                                     </td>
                                 </tr>
                                 ');
                                 }
+                            }
+                        }
+                        else{
+                            if(isset($_SESSION['erro_select_pedido'])){            
+                                echo('<td colspan="8">'.$_SESSION['erro_select_pedido'].'</td>');
+                                unset($_SESSION['erro_select_pedido']);
                             }
                         }
                         ?>

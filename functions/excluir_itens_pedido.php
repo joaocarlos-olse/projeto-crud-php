@@ -8,19 +8,19 @@
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
     try{
-        $sql = "DELETE FROM produto WHERE id = '$id'";
+        $sql = "DELETE FROM pedidos WHERE id = '$id'";
 
         $query = mysqli_query($conexao, $sql);
 
-        $_SESSION['sucesso_excluir'] = "<strong>FEITO:</strong> Cadastro excluido!";
-        header("Location: select_produto.php");
+        $_SESSION['sucesso_excluir'] = "<strong>FEITO:</strong> Pedido excluido!";
+        header("Location: select_pedido.php");
         
     }
     catch (mysqli_exception $e){
         mysqli_rollback($conexao);
         
-        $_SESSION['erro_excluir'] = "<strong>ERRO:</strong><br> Cadastro não foi atualizado!";
-        header("Location: select_cliente.php");
+        $_SESSION['erro_excluir'] = "<strong>ERRO:</strong><br> Pedido não foi excluido!";
+        header("Location: select_pedido.php");
     }
     finally{
         mysqli_close($conexao);        

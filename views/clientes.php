@@ -146,15 +146,7 @@
                     </div>
                     ');
                     unset($_SESSION['sucesso_excluir']);
-                }              
-                if(isset($_SESSION['erro_select_cli'])){            
-                    echo('
-                    <div class="alert alert-danger erro-login" role="alert">
-                        '.$_SESSION['erro_select_cli'].'
-                    </div>
-                    ');
-                    unset($_SESSION['erro_select_cli']);
-                }              
+                }                          
             ?>
             
             <div class="gap-2 d-md-flex justify-content-end">                
@@ -252,11 +244,10 @@
                         }
                     }
                     else{
-                        echo('                             
-                            <tr>
-                                <th scope="row">Nenhum registro encontrado!</th>
-                            </tr>                                           
-                        ');                         
+                        if(isset($_SESSION['erro_select_cli'])){            
+                            echo('<td colspan="8">'.$_SESSION['erro_select_cli'].'</td>');
+                            unset($_SESSION['erro_select_cli']);
+                        }                         
                     }
                     echo('
                             </tbody>

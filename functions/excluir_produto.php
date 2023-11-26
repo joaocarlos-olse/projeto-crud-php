@@ -19,8 +19,8 @@
     catch (mysqli_exception $e){
         mysqli_rollback($conexao);
         
-        $_SESSION['erro_excluir'] = "<strong>ERRO:</strong><br> Cadastro não foi atualizado!";
-        header("Location: select_cliente.php");
+        $_SESSION['erro_excluir'] = "<strong>ERRO:</strong><br> Cadastro não foi pedido!";
+        header("Location: select_produto.php");
     }
     finally{
         mysqli_close($conexao);        

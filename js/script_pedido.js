@@ -53,3 +53,9 @@ function setDadosCli(){
     celular.value = dados[2];
 }
 
+// Coloca como parametro GET o id do pedido que vai ser excluido
+function excluirPedidoId(id){
+    const a = document.querySelector("#linkExcluir");
+    a.href = "../functions/excluir_itens_pedido.php?id="+id
+    $('#ModalConfirmarExcluir').modal('show');
+}

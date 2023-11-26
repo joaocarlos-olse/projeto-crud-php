@@ -135,15 +135,7 @@
                     </div>
                     ');
                     unset($_SESSION['sucesso_excluir']);
-                }              
-                if(isset($_SESSION['erro_select_prod'])){            
-                    echo('
-                    <div class="alert alert-danger erro-login" role="alert">
-                        '.$_SESSION['erro_select_prod'].'
-                    </div>
-                    ');
-                    unset($_SESSION['erro_select_prod']);
-                }              
+                }                           
             ?>
             
             <div class="gap-2 d-md-flex justify-content-end">       
@@ -213,11 +205,10 @@
                         }
                     }
                     else{
-                        echo('                             
-                            <tr>
-                                <th scope="row">Nenhum registro encontrado!</th>
-                            </tr>                                           
-                        ');
+                        if(isset($_SESSION['erro_select_prod'])){            
+                            echo('<td colspan="8">'.$_SESSION['erro_select_prod'].'</td>');
+                            unset($_SESSION['erro_select_prod']);
+                        }  
                     }
                     ?>
                     </tbody>
