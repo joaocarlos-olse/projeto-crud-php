@@ -168,7 +168,7 @@
                     <i class="bi bi-plus-lg"></i>
                     <span>Novo Pedido</span>
                 </a>
-                <a href="../common/relatorio_clientes_render.php" target="_blank" class="btn-tabela bg-cor-secundaria cor-primaria justify-content-center d-flex align-items-center">
+                <a href="../common/relatorio_pedidos_render.php" target="_blank" class="btn-tabela bg-cor-secundaria cor-primaria justify-content-center d-flex align-items-center">
                     <i class="bi bi-file-earmark-pdf "></i>
                     <span>Emitir Relatório</span>
                 </a>
