@@ -209,7 +209,7 @@
                                 if ($_SESSION['admin'] == 1) {
                                     echo ('                        
                                     <td class="td-icone-acoes">
-                                        <button type="button" class="bi bi-eye icone-acoes cor-destaque"></button>
+                                        <a href="../functions/select_itens_pedido.php?id=' . $ped['id'] . '" target="_blank" class="bi bi-eye icone-acoes cor-destaque"></a>
                                     </td>
                                     <td class="td-icone-acoes">
                                         <button type="button" class="bi bi-trash-fill icone-acoes cor-destaque" onclick="excluirPedidoId(' . $ped['id'] . ');" ></button>
